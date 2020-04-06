@@ -16,4 +16,9 @@ public class CanvasManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
+    private void Start()
+    {
+        BatteryBar.fillAmount = GameManager.singleton.BatteryAmount / 100;
+    }
 }
