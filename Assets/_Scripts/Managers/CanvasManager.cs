@@ -19,6 +19,6 @@ public class CanvasManager : MonoBehaviour
 
     private void Start()
     {
-        BatteryBar.fillAmount = GameManager.singleton.BatteryAmount / 100;
+        BatteryBar.fillAmount = Player.BatteryAmount / 100;
     }
 }
