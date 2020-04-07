@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject PlayerCamera;
+
     public static int KeyCount = 0;
+    public static bool IsHiding = false;
 
     [Header("Flashlight")]
     [SerializeField]
@@ -22,6 +25,8 @@ public class Player : MonoBehaviour
         SetBatteryAmount(100);
     }
 
+    #region Battery
+
     public static void SetBatteryAmount(float newAmount)
     {
         BatteryAmount = newAmount;
@@ -32,4 +37,6 @@ public class Player : MonoBehaviour
     {
         SetBatteryAmount(BatteryAmount - BatteryDrainRate);
     }
+
+    #endregion
 }

@@ -13,22 +13,15 @@ public class Interactable : MonoBehaviour
     public string ActionDescription;
     public bool DestroyOnUse;
 
+    public Player CollidingPlayer;
+
     protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             CanvasManager.singleton.ActivateInteractable(ActionDescription);
-        }
-    }
 
-    protected void OnTriggerStay(Collider other)
-    {
-        if(other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
-        {
-            PerformAction();
-
-            if (DestroyOnUse)
-                Destroy(gameObject);
+            CollidingPlayer = other.GetComponent<Player>();
         }
     }
 
@@ -37,6 +30,19 @@ public class Interactable : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CanvasManager.singleton.DeactivateInteractable();
+
+            CollidingPlayer = null;
+        }
+    }
+
+    protected void Update()
+    {
+        if (CollidingPlayer != null && Input.GetKeyDown(KeyCode.E))
+        {
+            PerformAction();
+
+            if (DestroyOnUse)
+                Destroy(gameObject);
         }
     }
 
