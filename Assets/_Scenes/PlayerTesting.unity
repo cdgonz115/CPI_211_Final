@@ -575,11 +575,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 791816371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21a299f5c55dfe640a0d212c17258f2c, type: 3}
+  m_Script: {fileID: 11500000, guid: ea491423965024c46b67e655ed167b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionDescription: chtest
+  ActionDescription: go to next level
   DestroyOnUse: 0
+  NewSceneName: SceneTransitionTest
 --- !u!65 &791816373
 BoxCollider:
   m_ObjectHideFlags: 0
