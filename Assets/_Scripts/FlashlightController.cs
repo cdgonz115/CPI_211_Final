@@ -21,6 +21,7 @@ public class FlashlightController : MonoBehaviour
         else if(LightObj.activeSelf)
         {
             LightObj.SetActive(false);
+            
         }
     }
 }
