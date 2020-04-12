@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class FlashLight : MonoBehaviour
 {
     public Battery[] batteries;
+    public GameObject flashLight;
     public GameObject flash;
     public bool on;
     // Start is called before the first frame update
@@ -20,8 +21,9 @@ public class FlashLight : MonoBehaviour
         if(on)
         {
             flash.SetActive(true);
-            GetComponent<Image>().color = new Color32(255,255,255,255);
-            GetComponent<Outline>().effectColor = new Color32(255,255,255,255);
+            flashLight.GetComponent<Image>().color = new Color32(180,180,180,255);
+            flashLight.GetComponent<Outline>().effectColor = new Color32(180,180,180,255);
+
             for(int i = 0; i< batteries.Length; i++)
             {
                 batteries[i].turnOn();
@@ -31,8 +33,8 @@ public class FlashLight : MonoBehaviour
         else
         {
             flash.SetActive(false);
-            GetComponent<Image>().color = new Color32(255,255,255,90);
-            GetComponent<Outline>().effectColor = new Color32(255,255,255,90);
+            flashLight.GetComponent<Image>().color = new Color32(180,180,180,90);
+            flashLight.GetComponent<Outline>().effectColor = new Color32(180,180,180,90);
             for(int i = 0; i< batteries.Length; i++)
             {
                 batteries[i].turnOff();
