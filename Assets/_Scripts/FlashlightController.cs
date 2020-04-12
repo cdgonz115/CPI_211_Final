@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Simple class that handles the flashlight
+/// that the player uses
+/// </summary>
 public class FlashlightController : MonoBehaviour
 {
     public GameObject LightObj;
 
     private void Update()
     {
-        if (Input.GetButton("Fire1") && !LightObj.activeSelf && GameManager.singleton.BatteryAmount > 0)
+        if (Input.GetButton("Fire1") && !LightObj.activeSelf && Player.BatteryAmount > 0)
         {
             LightObj.SetActive(true);
 
-            GameManager.singleton.SetBatteryAmount();
+            Player.SetBatteryAmount();
         }
         else if(LightObj.activeSelf)
         {
