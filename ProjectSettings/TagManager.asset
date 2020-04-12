@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
-  - PlayerSpawn
   layers:
   - Default
   - TransparentFX
