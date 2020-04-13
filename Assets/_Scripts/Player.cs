@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
     public static void SetBatteryAmount(float newAmount)
     {
         BatteryAmount = newAmount;
-        CanvasManager.singleton.BatteryBar.fillAmount = BatteryAmount / 100;
     }
 
     public static void SetBatteryAmount()
