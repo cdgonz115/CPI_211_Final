@@ -10,6 +10,8 @@ public class CanvasManager : MonoBehaviour
     public Text InteractionText;
     public FlashLightUI flashUI;
 
+    public Transform InventoryParent;   //Parent reference used to spawn inventory item UI
+
     private void Awake()
     {
         if (singleton == null)

@@ -15,6 +15,11 @@ public class Interactable : MonoBehaviour
 
     public Player CollidingPlayer;
 
+    protected void OnDestroy()
+    {
+        CanvasManager.singleton.DeactivateInteractable();
+    }
+
     protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
