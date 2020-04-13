@@ -8,7 +8,7 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager singleton;
 
     public Text InteractionText;
-    public Image BatteryBar;
+    public FlashLightUI flashUI;
 
     public Transform InventoryParent;   //Parent reference used to spawn inventory item UI
 
@@ -22,9 +22,9 @@ public class CanvasManager : MonoBehaviour
         InteractionText.gameObject.SetActive(false);
     }
 
-    private void Start()
+    private void Update() 
     {
-        BatteryBar.fillAmount = Player.BatteryAmount / 100;
+        flashUI.batteryValue = Player.BatteryAmount;
     }
 
     #region Interactable's
