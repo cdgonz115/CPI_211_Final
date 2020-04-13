@@ -14,12 +14,14 @@ public class FlashlightController : MonoBehaviour
 
     private void Awake()
     {
+        //Turns off flashlight on default
         IsOn = false;
         LightObj.SetActive(false);
     }
 
     private void Update()
     {
+        //Toggles the flashlight
         if(Input.GetButtonDown("Fire1"))
         {
             IsOn = !IsOn;
@@ -34,10 +36,12 @@ public class FlashlightController : MonoBehaviour
             }
         }
 
+        //Drains the battery
         if (IsOn)
         {
             Player.SetBatteryAmount();
 
+            //Disables flashlight if it ran out of battery
             if(Player.BatteryAmount <= 0)
             {
                 IsOn = false;
