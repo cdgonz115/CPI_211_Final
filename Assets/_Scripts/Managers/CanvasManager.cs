@@ -37,7 +37,10 @@ public class CanvasManager : MonoBehaviour
 
     public void DeactivateInteractable()
     {
-        InteractionText.gameObject.SetActive(false);
+        if(InteractionText != null)
+        {
+            InteractionText.gameObject.SetActive(false);
+        }
     }
 
     #endregion
