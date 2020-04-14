@@ -10,18 +10,43 @@ public class FlashlightController : MonoBehaviour
 {
     public GameObject LightObj;
     public FlashLightUI flashObj;
+    public bool IsOn;
+
+    private void Awake()
+    {
+        //Turns off flashlight on default
+        IsOn = false;
+        LightObj.SetActive(false);
+    }
+
     private void Update()
     {
-        if (Input.GetButton("Fire1") && !LightObj.activeSelf && Player.BatteryAmount > 0)
+        //Toggles the flashlight
+        if(Input.GetButtonDown("Fire1"))
         {
-            LightObj.SetActive(true);
-            
-            Player.SetBatteryAmount();
-        }
-        else if(LightObj.activeSelf)
-        {
-            LightObj.SetActive(false);   
+            IsOn = !IsOn;
+
+            if(!IsOn)
+            {
+                LightObj.SetActive(false);
+            }
+            else
+            {
+                LightObj.SetActive(true);
+            }
         }
 
+        //Drains the battery
+        if (IsOn)
+        {
+            Player.SetBatteryAmount();
+
+            //Disables flashlight if it ran out of battery
+            if(Player.BatteryAmount <= 0)
+            {
+                IsOn = false;
+                LightObj.SetActive(false);
+            }
+        }
     }
 }

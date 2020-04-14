@@ -11,6 +11,6 @@ public class SceneTransition : Interactable
     {
         base.PerformAction();
 
-        SceneManager.LoadScene(NewSceneName);
+        GameManager.singleton.ChangeScene(NewSceneName);
     }
 }
