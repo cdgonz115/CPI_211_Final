@@ -6,6 +6,7 @@ public class DroneCrash : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject crashLocation;
+    public float speed;
 
     public void OnEnable()
     {
@@ -13,6 +14,6 @@ public class DroneCrash : MonoBehaviour
     }
     void Update()
     {
-        if(transform.position!=crashLocation.transform.position)transform.position+=(transform.position - crashLocation.transform.position)*-.02f;
+        if(transform.position!=crashLocation.transform.position)transform.position-=(transform.position - crashLocation.transform.position)*speed;
     }
 }
