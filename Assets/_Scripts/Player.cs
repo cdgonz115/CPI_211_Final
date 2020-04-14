@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [Header("Class and Obj References")]
     private static FirstPersonController _fpsController;
     public GameObject PlayerCamera;
+    public static FlashlightController LightController;
     
     [Header("Hiding")]
     private static bool _isHiding;
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour
         _playerSpeeds = new Vector3(_fpsController.WalkSpeed, _fpsController.RunSpeed, _fpsController.JumpSpeed);
 
         _inventory = new Dictionary<string, InventoryItem>();
+
+        LightController = GetComponent<FlashlightController>();
     }
 
     private void Start()
