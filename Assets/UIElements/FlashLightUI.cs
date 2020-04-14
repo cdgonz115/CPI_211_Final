@@ -23,12 +23,12 @@ public class FlashLightUI : MonoBehaviour
     void Update()
     {
         
-        if(Input.GetMouseButton(0) && Player.BatteryAmount > 0)
+        if(Player.LightController.IsOn && Player.BatteryAmount > 0)
         {
             on = true;
         }
 
-        else if(!Input.GetMouseButton(0))
+        else if(!Player.LightController.IsOn)
         {
             on = false;
         }
