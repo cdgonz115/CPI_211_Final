@@ -304,6 +304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightObj: {fileID: 65604985700079799}
+  flashObj: {fileID: 0}
+  IsOn: 0
 --- !u!114 &1084851102417055658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 4232917174339151223}
   _batteryDrainRate: 0.1
+  DeathDistance: 2
 --- !u!1 &4232917174339151223
 GameObject:
   m_ObjectHideFlags: 0

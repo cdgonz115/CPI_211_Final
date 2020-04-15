@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager singleton;
 
-    public Scene CurrentScene;
+    public string CurrentSceneName;
 
     private void Awake()
     {
@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        if(CurrentScene == null)
+        if(string.IsNullOrEmpty(CurrentSceneName))
         {
-            CurrentScene = SceneManager.GetActiveScene();
+            CurrentSceneName = SceneManager.GetActiveScene().name;
         }
     }
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         {
             if (saveScene)
             {
-                CurrentScene = nextScene;
+                CurrentSceneName = sceneName;
             }
 
             SceneManager.LoadScene(sceneName);
@@ -51,9 +51,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void RetryLevel()
     {
-        if(CurrentScene != null)
+        if(CurrentSceneName != null)
         {
-            SceneManager.LoadScene(CurrentScene.name);
+            SceneManager.LoadScene(CurrentSceneName);
         }
     }
 }

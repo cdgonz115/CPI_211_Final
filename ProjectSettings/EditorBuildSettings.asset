@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/SceneTransitionTest.unity
     guid: 8caa9cb1d4ee6cf4db607fbfed95d64d
+  - enabled: 1
+    path: Assets/_Scenes/GameOver.unity
+    guid: d1d8e509822f3de4aad5200ca941f51d
+  - enabled: 1
+    path: Assets/_Scenes/AITesting.unity
+    guid: 9779cf019c6481e47bfc4638410d51a6
   m_configObjects: {}
