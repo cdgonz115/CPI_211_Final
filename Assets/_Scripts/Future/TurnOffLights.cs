@@ -6,6 +6,8 @@ public class TurnOffLights : MonoBehaviour
 {
     public GameObject turnBine1;
     public GameObject turnBine2;
+    public GameObject lightO;
+    public GameObject lightT;
     public GameObject dayLight;
     public List<GameObject> cityLights;
     public List<GameObject> otherLights;
@@ -33,6 +35,10 @@ public class TurnOffLights : MonoBehaviour
             }
             yield return ws;
         }
+        turnBine1.GetComponent<PowerRotator>().enabled=false;
+        turnBine2.GetComponent<PowerRotator>().enabled=false;
+        lightO.SetActive(false);
+        lightT.SetActive(false);
         turbineCam.SetActive(false);
         cityCam.SetActive(true);
         for (int x = 0; x < cityLights.Count*40; x++)
