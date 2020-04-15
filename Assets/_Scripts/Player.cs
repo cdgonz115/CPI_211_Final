@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _batteryDrainRate;
     public static float BatteryDrainRate;
-    public static float BatteryAmount;
+    public static float BatteryAmount = -1;  //The default value of -1 indicates it needs to be set to 100 in Start()
 
     [Header("Misc")]
     public static Vector3 _playerSpeeds;    //x = walk speed, y = run speed, z = jump speed
@@ -63,7 +63,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        SetBatteryAmount(100);
+        //-1 is the default value and the player hasn't been instantiated at all yet
+        if (BatteryAmount == -1)
+        {
+            SetBatteryAmount(100);
+        }
     }
 
     /**
