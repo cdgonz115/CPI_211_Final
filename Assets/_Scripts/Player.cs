@@ -41,12 +41,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _batteryDrainRate;
     public static float BatteryDrainRate;
-    public static float BatteryAmount;
+    public static float BatteryAmount = -1;  //The default value of -1 indicates it needs to be set to 100 in Start()
 
     [Header("Misc")]
     public static Vector3 _playerSpeeds;    //x = walk speed, y = run speed, z = jump speed
     public static int KeyCount = 0;
     private Dictionary<string, InventoryItem> _inventory;
+    public float DeathDistance;
 
     private void Awake()
     {
@@ -62,7 +63,29 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        SetBatteryAmount(100);
+        //-1 is the default value and the player hasn't been instantiated at all yet
+        if (BatteryAmount == -1)
+        {
+            SetBatteryAmount(100);
+        }
+    }
+
+    /**
+     * Notes: This determines if the player dies. I had to use the trigger
+     * method and base it off a distance because of the way the bad man prefab is setup. The mix of colliders on the single
+     * object made it so that OnCollisionEnter() never got called. This was my workaround
+     */
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Bad"))
+        {
+            float distance = Mathf.Abs(Vector3.Distance(other.transform.position, transform.position));
+
+            if(distance <= DeathDistance)
+            {
+                GameManager.singleton.SetLevel("GameOver", false);
+            }
+        }
     }
 
     #region Battery
