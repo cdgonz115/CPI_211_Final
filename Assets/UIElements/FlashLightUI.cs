@@ -22,19 +22,19 @@ public class FlashLightUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(Player.LightController.IsOn && Player.BatteryAmount > 0)
+
+        if (Input.GetMouseButton(0) && Player.BatteryAmount > 0)
         {
             on = true;
         }
 
-        else if(!Player.LightController.IsOn)
+        else if (!Input.GetMouseButton(0))
         {
             on = false;
         }
 
         //These if statements determine the current battery;
-        if(batteryValue < 33) // Final battery
+        if (batteryValue < 33) // Final battery
         {
             currentBattery = 0;
         }
