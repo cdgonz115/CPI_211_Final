@@ -13,7 +13,7 @@ public class FlashlightController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire1") && !LightObj.activeSelf && Player.BatteryAmount > 0)
+        if (Input.GetButton("Fire1") && !LightObj.activeSelf && Player.BatteryAmount > 0 && !Player.IsHiding)
         {
             LightObj.SetActive(true);
 
