@@ -71,7 +71,7 @@ MonoBehaviour:
   WalkSpeed: 5
   RunSpeed: 10
   m_RunstepLenghten: 0.7
-  JumpSpeed: 0
+  JumpSpeed: 7
   m_StickToGroundForce: 10
   m_GravityMultiplier: 2
   m_MouseLook:
@@ -305,7 +305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LightObj: {fileID: 65604985700079799}
   flashObj: {fileID: 0}
-  IsOn: 0
 --- !u!114 &1084851102417055658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 4232917174339151223}
-  _batteryDrainRate: 0.1
+  _batteryDrainRate: 0.01
   DeathDistance: 2
 --- !u!1 &4232917174339151223
 GameObject:
@@ -472,12 +471,12 @@ PrefabInstance:
     - target: {fileID: 108038271100546340, guid: d86ca2f4159e6a942abd8dfc52b38395,
         type: 3}
       propertyPath: m_Intensity
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 108038271100546340, guid: d86ca2f4159e6a942abd8dfc52b38395,
         type: 3}
       propertyPath: m_Range
-      value: 50
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 108038271100546340, guid: d86ca2f4159e6a942abd8dfc52b38395,
         type: 3}

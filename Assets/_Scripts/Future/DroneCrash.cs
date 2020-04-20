@@ -12,7 +12,7 @@ public class DroneCrash : MonoBehaviour
     {
         //crash();
     }
-    void Update()
+    void FixedUpdate()
     {
         if(transform.position!=crashLocation.transform.position)transform.position-=(transform.position - crashLocation.transform.position)*speed;
     }
