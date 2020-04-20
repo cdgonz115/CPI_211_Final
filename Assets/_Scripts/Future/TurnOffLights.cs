@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnOffLights : MonoBehaviour
+public class TurnOffLights : Interactable
 {
     public GameObject turnBine1;
     public GameObject turnBine2;
@@ -18,7 +18,13 @@ public class TurnOffLights : MonoBehaviour
     public GameObject playerCam;
     public GameObject drone;
 
+    private bool _hasTurnedOff = false;
+
     private WaitForSeconds ws = new WaitForSeconds(1 / 60);
+
+    [Header("Bad Man Spawn")]
+    public GameObject StalkPointParent;
+    public GameObject BadManPrefab;
 
 
     IEnumerator turnOff()
@@ -62,9 +68,21 @@ public class TurnOffLights : MonoBehaviour
         drone.GetComponent<DroneCrash>().enabled = false;
         gameObject.SetActive(false);
 
+        //Spawns in bad man
+        StalkPointParent.SetActive(true);
+        Instantiate(BadManPrefab);
     }
-    private void OnTriggerEnter(Collider other)
+
+    protected override void PerformAction()
     {
-        if (other.gameObject.name == "Player") StartCoroutine("turnOff");
+        base.PerformAction();
+
+        if(!_hasTurnedOff)
+        {
+            StartCoroutine(turnOff());
+            _hasTurnedOff = true;
+            _displayUI = false;
+            CanvasManager.singleton.DeactivateInteractable();
+        }
     }
 }
