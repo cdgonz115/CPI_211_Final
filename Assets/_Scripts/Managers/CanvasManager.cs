@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class CanvasManager : MonoBehaviour
 
     public Text InteractionText;
     public FlashLightUI flashUI;
+    public Text KeyUIText;
 
     public Transform InventoryParent;   //Parent reference used to spawn inventory item UI
 
@@ -25,6 +27,11 @@ public class CanvasManager : MonoBehaviour
     private void Update() 
     {
         flashUI.batteryValue = Player.BatteryAmount;
+
+        if(KeyUIText != null)
+        {
+            KeyUIText.text = "Keys x " + Player.KeyCount;
+        }
     }
 
     #region Interactable's
