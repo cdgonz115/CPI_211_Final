@@ -39,7 +39,7 @@ public class moveTo : MonoBehaviour
         playerPos = player[0].transform;
         lastPlayerSight = playerPos;
         timeAttack = false;
-        randTime = Random.Range(5.0f, 10.0f);
+        randTime = Random.Range(60.0f, 120.0f);
         timer = randTime;
     }
 
