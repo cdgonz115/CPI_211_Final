@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TurnOffLights : Interactable
 {
-    public GameObject turnBine1;
-    public GameObject turnBine2;
+    public PowerRotator turnBine1;
+    public PowerRotator turnBine2;
+    public float minTurbineSpeed;
+    public float turbineDecreaseSpeed;
     public GameObject lightO;
     public GameObject lightT;
     public GameObject dayLight;
@@ -16,11 +18,9 @@ public class TurnOffLights : Interactable
     public GameObject cityCam;
     public GameObject cinematicCamera;
     public GameObject playerCam;
-    public GameObject drone;
+    public DroneCrash drone;
 
     private bool _hasTurnedOff = false;
-
-    private WaitForSeconds ws = new WaitForSeconds(1f / 60f);
 
     [Header("Bad Man Spawn")]
     public GameObject StalkPointParent;
@@ -29,29 +29,31 @@ public class TurnOffLights : Interactable
 
     IEnumerator turnOff()
     {
+        YieldInstruction frameDelay = new WaitForEndOfFrame();
+        YieldInstruction secondDelay = new WaitForSeconds(.5f);
+
         playerCam.SetActive(false);
         dayLight.SetActive(false);
         turbineCam.SetActive(true);
-        for (int x = 0; x < 420; x++)
+        while(turnBine1.rotateBy > minTurbineSpeed || turnBine2.rotateBy > minTurbineSpeed)
         {
-            print("loop");
-            if (x % 10 == 0)
-            {
-                turnBine1.GetComponent<PowerRotator>().rotateBy *=.95f;
-                turnBine2.GetComponent<PowerRotator>().rotateBy *=.95f;
-            }
-            yield return ws;
+            print(turnBine1.rotateBy);
+
+            turnBine1.rotateBy *= turbineDecreaseSpeed;
+            turnBine2.rotateBy *= turbineDecreaseSpeed;
+
+            yield return frameDelay;
         }
-        turnBine1.GetComponent<PowerRotator>().enabled=false;
-        turnBine2.GetComponent<PowerRotator>().enabled=false;
+        turnBine1.enabled=false;
+        turnBine2.enabled=false;
         lightO.SetActive(false);
         lightT.SetActive(false);
         turbineCam.SetActive(false);
         cityCam.SetActive(true);
-        for (int x = 0; x < cityLights.Count*40; x++)
+        for (int x = 0; x < cityLights.Count; x++)
         {
-            if (x % 40 == 0) cityLights[x / 40].SetActive(false);
-            yield return ws;
+            cityLights[x].SetActive(false);
+            yield return secondDelay;
         }
         for (int x = 0; x < otherLights.Count; x++)
         {
@@ -59,10 +61,10 @@ public class TurnOffLights : Interactable
         }
         cityCam.SetActive(false);
         cinematicCamera.SetActive(true);
-        drone.GetComponent<DroneCrash>().enabled = true;
-        for (int x=0; x < 4; x++)
+        drone.enabled = true;
+        while(!drone.HasCrashed)
         {
-            yield return new WaitForSeconds(1);
+            yield return frameDelay;
         }
         cinematicCamera.SetActive(false);
         playerCam.SetActive(true);
