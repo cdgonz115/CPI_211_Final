@@ -20,7 +20,7 @@ public class TurnOffLights : Interactable
 
     private bool _hasTurnedOff = false;
 
-    private WaitForSeconds ws = new WaitForSeconds(1 / 60);
+    private WaitForSeconds ws = new WaitForSeconds(1f / 60f);
 
     [Header("Bad Man Spawn")]
     public GameObject StalkPointParent;
@@ -34,6 +34,7 @@ public class TurnOffLights : Interactable
         turbineCam.SetActive(true);
         for (int x = 0; x < 420; x++)
         {
+            print("loop");
             if (x % 10 == 0)
             {
                 turnBine1.GetComponent<PowerRotator>().rotateBy *=.95f;
