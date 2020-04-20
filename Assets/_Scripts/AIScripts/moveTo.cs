@@ -30,6 +30,13 @@ public class moveTo : MonoBehaviour
     public float chaseSpeed = 8f;
     public float searchSpeed = 5f;
 
+    //animation states
+    private float idle = 0.0f;
+    private float run = 1.0f;
+    private float walk = 0.5f;
+
+    private Animator anim;
+
     //init vars
     void Start()
     {
@@ -41,6 +48,7 @@ public class moveTo : MonoBehaviour
         timeAttack = false;
         randTime = Random.Range(60.0f, 120.0f);
         timer = randTime;
+        anim = gameObject.GetComponentInChildren<Animator>();
     }
 
     //state machine
@@ -87,6 +95,8 @@ public class moveTo : MonoBehaviour
         searching = false;
         agent.speed = chaseSpeed;
         agent.destination = playerPos.position;//chase the player
+
+        anim.SetFloat("Speed_f", run);
     }
 
     //searching for the player since they "disappeared"
@@ -100,6 +110,8 @@ public class moveTo : MonoBehaviour
         {
             selfSight.playerMissing = -1;
         }
+
+        anim.SetFloat("Speed_f", walk);
     }
 
     //stalking the player by standing at different locations based off of player position and staring at the player
@@ -117,7 +129,7 @@ public class moveTo : MonoBehaviour
             timer = randTime;
         }
 
-
+        anim.SetFloat("Speed_f", idle);
         //see wayPointSight script for more
 
         //if (agent.remainingDistance <= agent.stoppingDistance)//if we have arrived at a checkpoint
