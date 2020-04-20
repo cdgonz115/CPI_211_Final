@@ -18,6 +18,14 @@ public class knightState : MonoBehaviour
     public bool guarding;
 
     public float speed = 8f;
+    private float walkSpeed = 4f;
+
+    //animation states
+    private float idle = 0.0f;
+    private float run = 1.0f;
+    private float walk = 0.5f;
+
+    private Animator anim;
 
     //public Vector3 postPoint;
 
@@ -31,7 +39,7 @@ public class knightState : MonoBehaviour
         playerPos = player[0].transform;
         chasing = false;
         guarding = true;
-        
+        anim = gameObject.GetComponentInChildren<Animator>();
         //postPoint = postpointBoi.transform.position;
         //postPoint = gameObject.transform.position;
     }
@@ -56,13 +64,29 @@ public class knightState : MonoBehaviour
         guarding = false;
         agent.speed = speed;
         agent.destination = playerPos.position;//chase the player
+        anim.SetFloat("Speed_f", run);
     }
 
     void Guarding()
     {
         chasing = false;
         guarding = true;
+        agent.speed = walkSpeed;
+        print(agent.speed);
         agent.destination = postPoint.transform.position;
+
+        if (agent.remainingDistance <= agent.stoppingDistance)//if we have arrived at a post, idle
+        {
+            gameObject.transform.rotation = postPoint.transform.rotation;
+            anim.SetFloat("Speed_f", idle);
+
+        }
+        else//walk
+        {
+            anim.SetFloat("Speed_f", walk);
+
+        }
+
     }
 
 }
