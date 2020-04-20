@@ -319,7 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 4232917174339151223}
   _batteryDrainRate: 0.01
-  DeathDistance: 2
+  DeathDistance: 3
 --- !u!1 &4232917174339151223
 GameObject:
   m_ObjectHideFlags: 0
