@@ -13,6 +13,8 @@ public class Interactable : MonoBehaviour
     public string ActionDescription;
     public bool DestroyOnUse;
 
+    protected bool _displayUI = true;
+
     public Player CollidingPlayer;
 
     protected void OnDestroy()
@@ -22,7 +24,7 @@ public class Interactable : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && _displayUI)
         {
             CanvasManager.singleton.ActivateInteractable(ActionDescription);
 
