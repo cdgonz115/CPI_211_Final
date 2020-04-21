@@ -30,7 +30,12 @@ public class CanvasManager : MonoBehaviour
 
         if(KeyUIText != null)
         {
-            KeyUIText.text = "Keys x " + Player.KeyCount;
+            int keyCount = Player.KeyCount;
+            if(Player.HasLevelKey)
+            {
+                keyCount++;
+            }
+            KeyUIText.text = "Keys x " + keyCount;
         }
     }
 

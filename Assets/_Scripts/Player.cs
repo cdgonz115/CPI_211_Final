@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     [Header("Misc")]
     public static Vector3 _playerSpeeds;    //x = walk speed, y = run speed, z = jump speed
     public static int KeyCount = 0;
+    public static bool HasLevelKey = false;
     private Dictionary<string, InventoryItem> _inventory;
     public float DeathDistance;
 
@@ -59,6 +60,9 @@ public class Player : MonoBehaviour
         _inventory = new Dictionary<string, InventoryItem>();
 
         LightController = GetComponent<FlashlightController>();
+
+        IsHiding = false;
+        HasLevelKey = false;
     }
 
     private void Start()

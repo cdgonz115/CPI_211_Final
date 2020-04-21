@@ -37,8 +37,6 @@ public class TurnOffLights : Interactable
         turbineCam.SetActive(true);
         while(turnBine1.rotateBy > minTurbineSpeed || turnBine2.rotateBy > minTurbineSpeed)
         {
-            print(turnBine1.rotateBy);
-
             turnBine1.rotateBy *= turbineDecreaseSpeed;
             turnBine2.rotateBy *= turbineDecreaseSpeed;
 
