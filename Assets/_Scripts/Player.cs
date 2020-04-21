@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         {
             float distance = Mathf.Abs(Vector3.Distance(other.transform.position, transform.position));
 
-            if(distance <= DeathDistance)
+            if(distance <= DeathDistance && !IsHiding)
             {
                 GameManager.singleton.SetLevel("GameOver", false);
             }
