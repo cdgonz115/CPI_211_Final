@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordPickup :Interactable
+public class SwordPickup : InventoryItem
 {
     public List<GameObject> lights;
     private Color32 col = new Color32(255,0,0,255);
     protected override void PerformAction()
     {
+        base.PerformAction();
+
         for (int x = 0; x < lights.Count; x++)
         {
             List<GameObject> temp = lights[x].GetComponent<BloomingLight>().lights;
