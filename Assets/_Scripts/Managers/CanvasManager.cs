@@ -18,6 +18,7 @@ public class CanvasManager : MonoBehaviour
     public float FlashBaseDuration;
     public float FlashClearDuration;
     public float FlashSpeed;
+    public float FlashInitIntensity;
 
     private void Awake()
     {
@@ -79,7 +80,7 @@ public class CanvasManager : MonoBehaviour
 
         //Activates the white screen for a duration
         Color flashColor = FlashImage.color;
-        flashColor.a = 1;
+        flashColor.a = FlashInitIntensity;
         FlashImage.color = flashColor;
         yield return new WaitForSeconds(FlashBaseDuration);
 
