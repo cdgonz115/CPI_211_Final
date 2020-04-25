@@ -59,7 +59,7 @@ public class moveTo : MonoBehaviour
         {
             Suspended();//halt all manner of evilness
         }
-        else if (selfSight.playerInSight == 1 || timer <= 0)//if the player is seen
+        else if (!Player.IsHiding && (selfSight.playerInSight == 1 || timer <= 0))//if the player is seen
         {
             if (timer <= 0)
             {
@@ -69,7 +69,7 @@ public class moveTo : MonoBehaviour
             else
                 Chasing();
         }
-        else if (selfSight.playerMissing == 1)//if they went missing while they were being chased
+        else if (Player.IsHiding || selfSight.playerMissing == 1)//if they went missing while they were being chased
         {
             Searching();//search a bit
         }

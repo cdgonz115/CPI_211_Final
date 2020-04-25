@@ -39,7 +39,7 @@ public class CatchPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!Player.IsHiding && collision.gameObject.CompareTag("Player"))
         {
             //Freezes the player and bad man
             _rb.isKinematic = true;

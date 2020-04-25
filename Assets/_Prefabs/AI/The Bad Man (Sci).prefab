@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EyeLightObj: {fileID: 4618107739599821996}
   LightRate: 0.1
-  MaxLightLevel: 30
+  MaxLightLevel: 50
   StunDuration: 6
   MinBatteryAmount: 50
 --- !u!54 &6988267822130587609
