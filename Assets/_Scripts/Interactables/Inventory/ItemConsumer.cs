@@ -11,6 +11,14 @@ public class ItemConsumer : Interactable
 {
     public InventoryItem ItemToConsume;
 
+    protected new void Update()
+    {
+        if (CollidingPlayer != null && Input.GetKeyDown(KeyCode.E))
+        {
+            PerformAction();
+        }
+    }
+
     protected override void PerformAction()
     {
         base.PerformAction();
@@ -18,6 +26,11 @@ public class ItemConsumer : Interactable
         if(CollidingPlayer.HasItem(ItemToConsume.ItemName))
         {
             CollidingPlayer.RemoveInventory(ItemToConsume.ItemName);
+
+            if(DestroyOnUse)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
