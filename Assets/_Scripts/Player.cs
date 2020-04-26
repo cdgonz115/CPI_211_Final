@@ -29,9 +29,11 @@ public class Player : MonoBehaviour
             else
             {
                 PlayerMovement.UnfreezePlayer();
+                HidingObject = null;
             }
         }
     }
+    public static GameObject HidingObject;
 
     [Header("Flashlight")]
     [SerializeField]
