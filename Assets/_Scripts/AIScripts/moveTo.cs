@@ -59,7 +59,7 @@ public class moveTo : MonoBehaviour
         {
             Suspended();//halt all manner of evilness
         }
-        else if (!Player.IsHiding && (selfSight.playerInSight == 1 || timer <= 0))//if the player is seen
+        else if (!Player.IsHiding && (selfSight.playerInSight == 1 || timer <= 0))//if the player is seen  
         {
             if (timer <= 0)
             {
