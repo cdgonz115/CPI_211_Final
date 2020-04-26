@@ -9,11 +9,16 @@ public class LightFlickering : MonoBehaviour
     public float timer;
     public bool inCR=false;
     WaitForSeconds ws = new WaitForSeconds(1/60);
+    IEnumerator co;
 
+    private void Start()
+    {
+        co = Flicker();
+    }
     private void Update()
     {
         if(!inCR)timer += Time.deltaTime;
-        if (!inCR && timer >= timeInterval) StartCoroutine(Flicker());
+        if (!inCR && timer >= timeInterval) StartCoroutine(co);
     }
     IEnumerator Flicker()
     {
@@ -49,6 +54,11 @@ public class LightFlickering : MonoBehaviour
         }
         timer = 0;
         inCR = false;
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(co);
+        light.SetActive(false);
     }
 
 
