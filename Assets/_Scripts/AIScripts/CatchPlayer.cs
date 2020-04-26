@@ -13,8 +13,7 @@ public class CatchPlayer : MonoBehaviour
 {
     [Header("Class References")]
     private moveTo _moveTo;
-    //private Rigidbody _rb;
-    private GameObject playr;
+    private Rigidbody _rb;
 
     [Header("Eye Stuff")]
     public GameObject EyeLightObj;
@@ -28,61 +27,35 @@ public class CatchPlayer : MonoBehaviour
     private bool _isCaught;
     public float StunDuration;
     public float MinBatteryAmount;
-    private float killCooldown;
 
     private void Awake()
     {
         _moveTo = GetComponent<moveTo>();
-        //_rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         _eyeLight = EyeLightObj.GetComponent<Light>();
 
         _initEyeLightLevel = _eyeLight.intensity;
-        playr = GameObject.FindGameObjectWithTag("Player");
-        killCooldown = 0;
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (!Player.IsHiding && collision.gameObject.CompareTag("Player"))
-    //    {
-    //        //Freezes the player and bad man
-    //        _rb.isKinematic = true;
-    //        Player.PlayerMovement.FreezePlayer();
-    //        _moveTo.suspended = true;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!Player.IsHiding && collision.gameObject.CompareTag("Player"))
+        {
+            //Freezes the player and bad man
+            _rb.isKinematic = true;
+            Player.PlayerMovement.FreezePlayer();
+            _moveTo.suspended = true;
 
-    //        EyeLightObj.SetActive(true);
+            EyeLightObj.SetActive(true);
 
-    //        _isCaught = true;
-    //        _playerCam = collision.gameObject.GetComponentInChildren<Transform>();
-    //    }
-    //}
+            _isCaught = true;
+            _playerCam = collision.gameObject.GetComponentInChildren<Transform>();
+        }
+    }
 
     private void Update()
     {
-        killCooldown -= Time.deltaTime;
-        //on collision enter w/out needing rigidbody
-        //---------------------------------------------------------------------------------------------------------------------------
-        if(collidingY() && collidingX() && collidingZ() && killCooldown <= 0)//if colliding w/ player
-        {
-            //execute nick's onCollisionEnter(Collision collision) code
-            if (!Player.IsHiding) //&& collision.gameObject.CompareTag("Player"))
-            {
-                //Freezes the player and bad man
-                //_rb.isKinematic = true;
-                Player.PlayerMovement.FreezePlayer();
-                _moveTo.suspended = true;
-
-                EyeLightObj.SetActive(true);
-
-                _isCaught = true;
-
-                killCooldown = 3;
-
-                _playerCam = playr.gameObject.GetComponentInChildren<Transform>();
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------
-        if (_isCaught && _eyeLight.intensity <= MaxLightLevel)
+        if(_isCaught && _eyeLight.intensity <= MaxLightLevel)
         {
             _eyeLight.intensity += LightRate;
             _eyeLight.range += LightRate;
@@ -124,47 +97,10 @@ public class CatchPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(StunDuration);
 
-        //_rb.isKinematic = false;
+        _rb.isKinematic = false;
         _moveTo.suspended = false;
         _eyeLight.intensity = _initEyeLightLevel;
 
         yield return null;
     }
-
-    private bool collidingY()
-    {
-        bool colY = false;
-
-        if(Mathf.Abs(gameObject.transform.position.y - playr.transform.position.y) <= 2)
-        {
-            colY = true;
-        }
-
-        return colY;
-    }
-
-    private bool collidingX()
-    {
-        bool colX = false;
-
-        if (Mathf.Abs(gameObject.transform.position.x - playr.transform.position.x) <= 2)
-        {
-            colX = true;
-        }
-
-        return colX;
-    }
-
-    private bool collidingZ()
-    {
-        bool colZ = false;
-
-        if (Mathf.Abs(gameObject.transform.position.z - playr.transform.position.z) <= 2)
-        {
-            colZ = true;
-        }
-
-        return colZ;
-    }
-
 }
