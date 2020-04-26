@@ -59,7 +59,7 @@ public class moveTo : MonoBehaviour
         {
             Suspended();//halt all manner of evilness
         }
-        if (selfSight.playerInSight == 1 || timer <= 0)//if the player is seen
+        else if (!Player.IsHiding && (selfSight.playerInSight == 1 || timer <= 0))//if the player is seen
         {
             if (timer <= 0)
             {
@@ -69,7 +69,7 @@ public class moveTo : MonoBehaviour
             else
                 Chasing();
         }
-        else if (selfSight.playerMissing == 1)//if they went missing while they were being chased
+        else if (Player.IsHiding || selfSight.playerMissing == 1)//if they went missing while they were being chased
         {
             Searching();//search a bit
         }
@@ -85,6 +85,9 @@ public class moveTo : MonoBehaviour
         chasing = false;
         searching = false;
         //agent.GetComponent<NavMeshAgent>().isStopped = true;
+
+        agent.speed = 0;
+        anim.SetFloat("Speed_f", idle);
     }
 
     //chasing the player by running at them according to the navmesh
@@ -97,6 +100,8 @@ public class moveTo : MonoBehaviour
         agent.destination = playerPos.position;//chase the player
 
         anim.SetFloat("Speed_f", run);
+
+        Player.LightController.IsFlickering = true;
     }
 
     //searching for the player since they "disappeared"
@@ -130,6 +135,9 @@ public class moveTo : MonoBehaviour
         }
 
         anim.SetFloat("Speed_f", idle);
+
+        Player.LightController.IsFlickering = false;
+
         //see wayPointSight script for more
 
         //if (agent.remainingDistance <= agent.stoppingDistance)//if we have arrived at a checkpoint

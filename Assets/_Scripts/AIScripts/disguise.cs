@@ -10,7 +10,7 @@ public class disguise : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numChildren = gameObject.transform.GetChild(0).gameObject.transform.childCount;
+        numChildren = gameObject.transform.GetChild(0).gameObject.transform.childCount - 1; //-1 cuz the last child is not a model
         ready = true;
     }
 
