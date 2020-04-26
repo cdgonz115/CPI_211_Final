@@ -8,12 +8,18 @@ public class DroneCrash : MonoBehaviour
     public GameObject crashLocation;
     public float speed;
 
+    public float MinDistance;
+
+    public bool HasCrashed = false;
+
     public void OnEnable()
     {
         //crash();
     }
     void FixedUpdate()
     {
-        if(transform.position!=crashLocation.transform.position)transform.position-=(transform.position - crashLocation.transform.position)*speed;
+        float distance = Mathf.Abs(Vector3.Distance(transform.position, crashLocation.transform.position));
+        if (distance > MinDistance) transform.position -= (transform.position - crashLocation.transform.position) * speed;
+        else HasCrashed = true;
     }
 }

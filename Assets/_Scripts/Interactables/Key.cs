@@ -11,6 +11,6 @@ public class Key : Interactable
         base.PerformAction();
 
         SceneTransition.SetActive(true);
-        Player.KeyCount++;
+        Player.HasLevelKey = true;
     }
 }

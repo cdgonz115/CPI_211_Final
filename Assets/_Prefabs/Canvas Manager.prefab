@@ -43,4 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc33b8a8af0c20041ba784cdeadb0497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BatteryBar: {fileID: 0}
+  InteractionText: {fileID: 0}
+  flashUI: {fileID: 0}
+  KeyUIText: {fileID: 0}
+  InventoryParent: {fileID: 0}
+  FlashImage: {fileID: 0}
+  FlashBaseDuration: 1.5
+  FlashClearDuration: 0.1
+  FlashSpeed: 0.01
