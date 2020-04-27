@@ -11,6 +11,12 @@ public class SceneTransition : Interactable
     {
         base.PerformAction();
 
+        if(NewSceneName.Equals("Museum") && Player.HasLevelKey)
+        {
+            Player.HasLevelKey = false;
+            Player.KeyCount++;
+        }
+
         GameManager.singleton.SetLevel(NewSceneName);
     }
 }
