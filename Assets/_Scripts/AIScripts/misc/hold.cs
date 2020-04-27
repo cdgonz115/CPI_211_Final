@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AISight : MonoBehaviour
+public class hold : MonoBehaviour
 {
     public float view = 180f;//ai view in degrees
     public int playerInSight = -1;//state var
@@ -38,27 +38,45 @@ public class AISight : MonoBehaviour
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
         if (Mathf.Abs(player[0].transform.position.x - transform.position.x) > coll.radius && Mathf.Abs(player[0].transform.position.z - transform.position.z) > coll.radius)
         {
+            //print("you've outrun me");
+            //if (GameObject.ReferenceEquals(other.gameObject, player[0]))//if player is not in vision
+            //{
+            //print("reached");
 
             if (selfState.chasing)
             {
                 //player is missing!
-                playerMissing = 1;
                 if (Player.IsHiding)
                 {
+                    playerMissing = 1;
                     playerInSight = -1;
                     selfState.agent.destination = Player.HidingObject.transform.position + Player.HidingObject.transform.forward;//go to where the player last was before they disappeared
                 }
                 else
-                {
                     playerInSight = 1;
-                }
+
             }
+
+            //playerInSight = -1;//can no longer see the player
+            //}
         }
     }
     void OnTriggerStay(Collider other)
     {
+        //bool hiding = player[0].GetComponent<Player>().IsHiding;
         bool hiding = Player.IsHiding;
         behindWall = false;
+
+        //audio player stuff
+        //if (selfState.chasing == 1)
+        //{
+        //    if (!ads.isPlaying && play)
+        //    {
+        //        ads.PlayOneShot(sounds[0]);
+        //        play = false;
+        //    }
+        //    selfState.lastPlayerSight = player[0].transform;
+        //}
 
         //check if the player is in sight
         if (GameObject.ReferenceEquals(other.gameObject, player[0]))
@@ -78,7 +96,7 @@ public class AISight : MonoBehaviour
                     if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.chasing)//if it's the player and we're chasing them
                     {
                         playerInSight = 1;//we can see the player (there was no wall, so if they are hiding we saw them hide)
-
+                        playerMissing = -1;
                     }
                     else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.stalking)//if it's the player and we're hunting
                     {
@@ -87,7 +105,7 @@ public class AISight : MonoBehaviour
                         else
                             //print("found you!");
                             playerInSight = 1;//can see player
-
+                        playerMissing = -1;
                     }
                     else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.searching)//if it's the player and we're searching
                     {
@@ -106,8 +124,20 @@ public class AISight : MonoBehaviour
             }
 
         }
+        if (selfState.chasing && hiding == false && behindWall)//if chasing, as long as player is in the range keep chasing unless they hid while we couldn't see them
+        {
+            //print("player is in range although wall");
+            playerInSight = 1;
+        }
+        if (selfState.chasing && hiding && behindWall)//they hid while we are chasing them //(behindWall ||
+        {
+            //print("player hid");
+            playerInSight = -1;
+            playerMissing = 1;
+
+            selfState.agent.destination = Player.HidingObject.transform.position + Player.HidingObject.transform.forward;//go to where the player last was before they disappeared //selfState.lastPlayerSight.position + (2)
+        }
 
     }
 }
-
 

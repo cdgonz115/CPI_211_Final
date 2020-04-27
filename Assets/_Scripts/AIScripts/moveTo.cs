@@ -46,7 +46,7 @@ public class moveTo : MonoBehaviour
         playerPos = player[0].transform;
         lastPlayerSight = playerPos;
         timeAttack = false;
-        randTime = Random.Range(60.0f, 120.0f);
+        randTime = Random.Range(5.0f, 6.0f);
         timer = randTime;
         anim = gameObject.GetComponentInChildren<Animator>();
     }
@@ -59,7 +59,7 @@ public class moveTo : MonoBehaviour
         {
             Suspended();//halt all manner of evilness
         }
-        else if (!Player.IsHiding && (selfSight.playerInSight == 1 || timer <= 0))//if the player is seen  
+        else if (selfSight.playerInSight == 1 || timer <= 0)//if the player is seen   // !Player.IsHiding && 
         {
             if (timer <= 0)
             {
@@ -69,9 +69,9 @@ public class moveTo : MonoBehaviour
             else
                 Chasing();
         }
-        else if (Player.IsHiding || selfSight.playerMissing == 1)//if they went missing while they were being chased
+        else if ((Player.IsHiding && (selfSight.playerMissing == 1 || selfSight.behindWall)) || searching)//if they went missing while they were being chased //Player.IsHiding && 
         {
-            Searching();//search a bit
+                Searching();//search a bit
         }
         else//otherwise
         {
@@ -93,6 +93,15 @@ public class moveTo : MonoBehaviour
     //chasing the player by running at them according to the navmesh
     void Chasing()
     {
+
+        //reset timer iff bad man attacked due to timer == 0
+        if (timeAttack == true)
+        {
+            randTime = Random.Range(60.0f, 120.0f);
+            timer = randTime;
+            timeAttack = false;
+        }
+
         stalking = false;
         chasing = true;
         searching = false;
@@ -107,13 +116,23 @@ public class moveTo : MonoBehaviour
     //searching for the player since they "disappeared"
     void Searching()
     {
+
+        //reset timer iff bad man attacked due to timer == 0
+        if (timeAttack == true)
+        {
+            randTime = Random.Range(60.0f, 120.0f);
+            timer = randTime;
+            timeAttack = false;
+        }
+
         stalking = false;
         chasing = false;
         searching = true;
         agent.speed = searchSpeed;
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        //print(agent.remainingDistance - agent.stoppingDistance);
+        if (Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5 || selfSight.playerInSight == 1)
         {
-            selfSight.playerMissing = -1;
+            searching = false;
         }
 
         anim.SetFloat("Speed_f", walk);
@@ -132,6 +151,7 @@ public class moveTo : MonoBehaviour
         {
             randTime = Random.Range(60.0f, 120.0f);
             timer = randTime;
+            timeAttack = false;
         }
 
         anim.SetFloat("Speed_f", idle);

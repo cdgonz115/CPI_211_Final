@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AISight : MonoBehaviour
+public class temp : MonoBehaviour
 {
     public float view = 180f;//ai view in degrees
     public int playerInSight = -1;//state var
@@ -106,7 +106,7 @@ public class AISight : MonoBehaviour
             }
 
         }
-
+        
     }
 }
 
