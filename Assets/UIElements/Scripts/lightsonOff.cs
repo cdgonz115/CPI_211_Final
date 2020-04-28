@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class lightsonOff : MonoBehaviour
 {
     public GameObject light1;
     public GameObject light2;
     public GameObject light3;
+    public GameObject title;
     public float delayTime;
     private bool canShoot;
     private bool reloading;
@@ -15,6 +15,7 @@ public class lightsonOff : MonoBehaviour
     public int clipSize;
     public int clipCount;
     public int reloadTime; 
+
     void Start()
     {
         canShoot = true;
@@ -52,6 +53,7 @@ public class lightsonOff : MonoBehaviour
         light1.SetActive(false);
         light2.SetActive(false);
         light3.SetActive(false);
+        title.SetActive(false);
         canShoot = false;
 
         yield return new WaitForSeconds(delayLength);
@@ -59,6 +61,7 @@ public class lightsonOff : MonoBehaviour
         light1.SetActive(true);
         light2.SetActive(true);
         light3.SetActive(true);
+        title.SetActive(true);
         canShoot = true;
         yield return null;
     }
@@ -69,6 +72,7 @@ public class lightsonOff : MonoBehaviour
         light1.SetActive(true);
         light2.SetActive(true);
         light3.SetActive(true);
+        title.SetActive(true);
         clipSize = fullClip;
         reloading = false;
 
