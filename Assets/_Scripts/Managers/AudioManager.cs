@@ -10,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager singleton;
+
     private GameObject[] _audioClips;
 
     //Note: RSN stands for random scary noise
@@ -21,6 +23,11 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        if (singleton == null)
+            singleton = this;
+        else
+            Destroy(gameObject);
+
         //Loads and saves all audio clip obj's from the resources folder
         Object[] loadedClips = Resources.LoadAll("AudioClips");
         _audioClips = new GameObject[loadedClips.Length];

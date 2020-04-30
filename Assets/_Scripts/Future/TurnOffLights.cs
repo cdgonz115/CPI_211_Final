@@ -32,6 +32,12 @@ public class TurnOffLights : Interactable
         YieldInstruction frameDelay = new WaitForEndOfFrame();
         YieldInstruction secondDelay = new WaitForSeconds(.5f);
 
+        GameObject audio = AudioManager.singleton.PlayClip("Switch Sfx");
+        while (audio != null)
+        {
+            yield return frameDelay;
+        }
+
         playerCam.SetActive(false);
         dayLight.SetActive(false);
         turbineCam.SetActive(true);
