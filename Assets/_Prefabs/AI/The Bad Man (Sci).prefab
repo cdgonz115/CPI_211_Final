@@ -228,7 +228,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &9145424988741261933
 MonoBehaviour:
@@ -246,6 +246,7 @@ MonoBehaviour:
   playerInSight: -1
   playerMissing: -1
   ads: {fileID: 0}
+  behindWall: 0
   sounds: []
   player: []
 --- !u!114 &9145424988741261932
@@ -266,6 +267,7 @@ MonoBehaviour:
   searching: 0
   suspended: 0
   lastPlayerSight: {fileID: 0}
+  caught: 0
   chaseSpeed: 8
   searchSpeed: 5
 --- !u!114 &9145424988741261923

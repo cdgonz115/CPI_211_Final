@@ -65,7 +65,7 @@ public class CatchPlayer : MonoBehaviour
         if(collidingY() && collidingX() && collidingZ() && killCooldown <= 0)//if colliding w/ player
         {
             //execute nick's onCollisionEnter(Collision collision) code
-            if (!Player.IsHiding) //&& collision.gameObject.CompareTag("Player"))
+            if (_moveTo.chasing) //&& collision.gameObject.CompareTag("Player"))
             {
                 //Freezes the player and bad man
                 //_rb.isKinematic = true;
@@ -140,6 +140,14 @@ public class CatchPlayer : MonoBehaviour
             colY = true;
         }
 
+        if(Player.IsHiding && _moveTo.chasing)
+        {
+            if (Mathf.Abs(gameObject.transform.position.y - playr.transform.position.y) <= 10)
+            {
+                colY = true;
+            }
+        }
+
         return colY;
     }
 
@@ -152,6 +160,14 @@ public class CatchPlayer : MonoBehaviour
             colX = true;
         }
 
+        if (Player.IsHiding && _moveTo.chasing)
+        {
+            if (Mathf.Abs(gameObject.transform.position.x - playr.transform.position.x) <= 10)
+            {
+                colX = true;
+            }
+        }
+
         return colX;
     }
 
@@ -162,6 +178,14 @@ public class CatchPlayer : MonoBehaviour
         if (Mathf.Abs(gameObject.transform.position.z - playr.transform.position.z) <= 2)
         {
             colZ = true;
+        }
+
+        if (Player.IsHiding && _moveTo.chasing)
+        {
+            if (Mathf.Abs(gameObject.transform.position.z - playr.transform.position.z) <= 10)
+            {
+                colZ = true;
+            }
         }
 
         return colZ;

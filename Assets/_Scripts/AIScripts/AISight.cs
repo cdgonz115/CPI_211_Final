@@ -11,6 +11,7 @@ public class AISight : MonoBehaviour
     public AudioSource ads;
     private bool play = true;
     public bool behindWall;
+    private float timeSeeR = 2f;
     [SerializeField] private AudioClip[] sounds;
 
     //might use the following for hearing
@@ -31,8 +32,17 @@ public class AISight : MonoBehaviour
         selfState = GetComponent<moveTo>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        if(selfState.returning)
+        {
+            timeSeeR -= Time.deltaTime;
+        }
+        if (!selfState.returning && timeSeeR < 2)
+        {
+            timeSeeR = 2;
+        }
+
         if (selfState.searching) play = true;
         //make-shift onTriggerExit
         //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -75,7 +85,7 @@ public class AISight : MonoBehaviour
 
                 if (Physics.Raycast(transform.position + transform.up / 2, directionPlayer.normalized, out wallChecker, coll.radius))//if there is a collider
                 {
-                    if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.chasing)//if it's the player and we're chasing them
+                    if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && (selfState.chasing || (selfState.returning && timeSeeR <= 0)))//if it's the player and we're chasing them
                     {
                         playerInSight = 1;//we can see the player (there was no wall, so if they are hiding we saw them hide)
 
@@ -83,19 +93,26 @@ public class AISight : MonoBehaviour
                     else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.stalking)//if it's the player and we're hunting
                     {
                         if (hiding) //Player.IsHiding == true
+                        {
                             playerInSight = -1;//cannot see player, player is hiding
+                        }
                         else
-                            //print("found you!");
+                        {
                             playerInSight = 1;//can see player
+                        }
 
                     }
                     else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.searching)//if it's the player and we're searching
                     {
                         //print("there you are!");
                         if (hiding) //player[0].isHiding
+                        {
                             playerInSight = -1;//cannot see player, player is hiding
+                        }
                         else
+                        {
                             playerInSight = 1;//can see player
+                        }
                     }
                     else
                     {
