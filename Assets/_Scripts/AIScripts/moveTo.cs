@@ -14,21 +14,21 @@ public class moveTo : MonoBehaviour
     public bool chasing = false;
     public bool searching = false;
     public bool suspended = false;
+    public bool returning = false;
 
     //roaming route
-    //public Transform[] pathPoints = new Transform[4];
-   // public int pathIndex = 0;
     private Transform playerPos;
     private GameObject[] player;
     public Transform lastPlayerSight;
     private float timer;
     private bool timeAttack;
     private float randTime;
+    private bool startOffset;
 
     //constants
-    //public float stalkSpeed = 3f;
     public float chaseSpeed = 8f;
     public float searchSpeed = 5f;
+    private float offsetTime = 2f;
 
     //animation states
     private float idle = 0.0f;
@@ -36,6 +36,8 @@ public class moveTo : MonoBehaviour
     private float walk = 0.5f;
 
     private Animator anim;
+
+    public GameObject stalkObj;
 
     //init vars
     void Start()
@@ -46,21 +48,30 @@ public class moveTo : MonoBehaviour
         playerPos = player[0].transform;
         lastPlayerSight = playerPos;
         timeAttack = false;
-        randTime = Random.Range(60.0f, 120.0f);
+        randTime = Random.Range(5.0f, 6.0f);
         timer = randTime;
         anim = gameObject.GetComponentInChildren<Animator>();
+        startOffset = false;
+        stalkObj = null;
     }
 
     //state machine
-    void Update()
+    void FixedUpdate()
     {
         timer -= Time.deltaTime;
+
+        if(startOffset)
+        {
+            offsetTime -= Time.deltaTime;
+        }
+
         if(suspended)
         {
             Suspended();//halt all manner of evilness
         }
-        else if (!Player.IsHiding && (selfSight.playerInSight == 1 || timer <= 0))//if the player is seen  
+        else if (selfSight.playerInSight == 1 || timer <= 0)//if the player is seen   // !Player.IsHiding && 
         {
+            //print(selfSight.playerInSight);
             if (timer <= 0)
             {
                 timeAttack = true;
@@ -69,9 +80,13 @@ public class moveTo : MonoBehaviour
             else
                 Chasing();
         }
-        else if (Player.IsHiding || selfSight.playerMissing == 1)//if they went missing while they were being chased
+        else if ((Player.IsHiding && selfSight.playerMissing == 1) || searching)//if they went missing while they were being chased //|| selfSight.behindWall
         {
             Searching();//search a bit
+        }
+        else if(returning)//&& selfSight.playerInSight == -1
+        {
+            Returning();
         }
         else//otherwise
         {
@@ -84,7 +99,6 @@ public class moveTo : MonoBehaviour
         stalking = false;
         chasing = false;
         searching = false;
-        //agent.GetComponent<NavMeshAgent>().isStopped = true;
 
         agent.speed = 0;
         anim.SetFloat("Speed_f", idle);
@@ -93,30 +107,82 @@ public class moveTo : MonoBehaviour
     //chasing the player by running at them according to the navmesh
     void Chasing()
     {
+        
+        //reset timer iff bad man attacked due to timer == 0
+        if (timeAttack == true)
+        {
+            randTime = Random.Range(60.0f, 120.0f);
+            timer = randTime;
+            timeAttack = false;
+        }
+
         stalking = false;
         chasing = true;
         searching = false;
+        returning = false;
         agent.speed = chaseSpeed;
-        agent.destination = playerPos.position;//chase the player
 
+        agent.destination = playerPos.position;//chase the player
+        
         anim.SetFloat("Speed_f", run);
 
         Player.LightController.IsFlickering = true;
+        
+
     }
 
     //searching for the player since they "disappeared"
     void Searching()
     {
+        startOffset = true;
+        //reset timer iff bad man attacked due to timer == 0
+        if (timeAttack == true)
+        {
+            randTime = Random.Range(60.0f, 120.0f);
+            timer = randTime;
+            timeAttack = false;
+        }
+
         stalking = false;
         chasing = false;
         searching = true;
+        returning = false;
         agent.speed = searchSpeed;
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        
+        if (!agent.pathPending && (Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5 || selfSight.playerInSight == 1))
         {
-            selfSight.playerMissing = -1;
+            searching = false;
+            if (offsetTime <= 0)
+            {
+                selfSight.playerMissing = -1;
+            }
+            //"frustrated" sound effect
+            if (Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5)
+            {
+                returning = true;//run back to stalk point
+            }
+            else
+            {
+                selfSight.playerInSight = 1;
+            }
         }
 
         anim.SetFloat("Speed_f", walk);
+    }
+
+    void Returning()
+    {
+        returning = true;
+        stalking = false;
+        chasing = false;
+        searching = false;
+
+        agent.destination = stalkObj.transform.position;
+
+        if (!agent.pathPending && (selfSight.playerInSight == 1 || agent.remainingDistance == agent.stoppingDistance))
+        {
+            returning = false;
+        }
     }
 
     //stalking the player by standing at different locations based off of player position and staring at the player
@@ -125,13 +191,16 @@ public class moveTo : MonoBehaviour
         stalking = true;
         chasing = false;
         searching = false;
+        returning = false;
         agent.speed = 0f;
+        offsetTime = 2f;
 
         //reset timer iff bad man attacked due to timer == 0
         if(timeAttack == true)
         {
             randTime = Random.Range(60.0f, 120.0f);
             timer = randTime;
+            timeAttack = false;
         }
 
         anim.SetFloat("Speed_f", idle);
@@ -140,19 +209,5 @@ public class moveTo : MonoBehaviour
 
         //see wayPointSight script for more
 
-        //if (agent.remainingDistance <= agent.stoppingDistance)//if we have arrived at a checkpoint
-        //{
-        //    if (pathIndex < pathPoints.Length - 1)//move on to the next pathPoints.Length
-        //    {
-        //        pathIndex++;//increment
-
-        //    }
-        //    else
-        //    {
-        //        pathIndex = 0;//otherwise, reset to zero
-        //    }
-        //}
-        ////print(pathIndex);
-        //agent.destination = pathPoints[pathIndex].position;//continue stalk route
     }
 }

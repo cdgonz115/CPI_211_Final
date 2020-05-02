@@ -228,7 +228,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &9145424988741261933
 MonoBehaviour:
@@ -246,6 +246,7 @@ MonoBehaviour:
   playerInSight: -1
   playerMissing: -1
   ads: {fileID: 0}
+  behindWall: 0
   sounds: []
   player: []
 --- !u!114 &9145424988741261932
@@ -265,9 +266,11 @@ MonoBehaviour:
   chasing: 0
   searching: 0
   suspended: 0
+  returning: 0
   lastPlayerSight: {fileID: 0}
   chaseSpeed: 8
   searchSpeed: 5
+  stalkObj: {fileID: 0}
 --- !u!114 &9145424988741261923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EyeLightObj: {fileID: 4618107739599821996}
   LightRate: 0.1
-  MaxLightLevel: 50
+  MaxLightLevel: 25
   StunDuration: 6
   MinBatteryAmount: 50
 --- !u!1001 &9145424989678266659

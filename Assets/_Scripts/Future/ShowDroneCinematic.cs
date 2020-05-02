@@ -98,7 +98,7 @@ public class ShowDroneCinematic : MonoBehaviour
 
         _movingToDrone = false;
         Player.SetActive(true);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
 
         yield return null;
     }

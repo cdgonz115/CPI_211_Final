@@ -24,6 +24,14 @@ public class OpenDoor : Interactable
     /// <returns></returns>
     private IEnumerator DelayDoorOpen()
     {
+        YieldInstruction frameDelay = new WaitForEndOfFrame();
+
+        GameObject audio = AudioManager.singleton.PlayClip("Switch Sfx");
+        while(audio != null)
+        {
+            yield return frameDelay;
+        }
+
         CollidingPlayer.gameObject.SetActive(false);
         DroneCinematic.gameObject.SetActive(true);
         CanvasManager.singleton.DeactivateInteractable();

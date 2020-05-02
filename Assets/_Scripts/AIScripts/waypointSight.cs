@@ -31,6 +31,7 @@ public class waypointSight : MonoBehaviour
             if (agentDest.stalking)
             {
                 agentDest.agent.transform.position = this.transform.position;
+                agentDest.stalkObj = gameObject;
             }
         }
     }
