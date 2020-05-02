@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     public static int KeyCount = 0;
     public static bool HasLevelKey = false;
     private Dictionary<string, InventoryItem> _inventory;
+    public bool IsCaught;
 
     private void Awake()
     {

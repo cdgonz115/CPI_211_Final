@@ -62,51 +62,60 @@ public class CatchPlayer : MonoBehaviour
         killCooldown -= Time.deltaTime;
         //on collision enter w/out needing rigidbody
         //---------------------------------------------------------------------------------------------------------------------------
-        if(collidingY() && collidingX() && collidingZ() && killCooldown <= 0)//if colliding w/ player
+        if(!Player.IsHiding)
         {
-            //execute nick's onCollisionEnter(Collision collision) code
-            if (_moveTo.chasing) //&& collision.gameObject.CompareTag("Player"))
+            if (collidingY() && collidingX() && collidingZ() && killCooldown <= 0)//if colliding w/ player
             {
-                //Freezes the player and bad man
-                //_rb.isKinematic = true;
-                Player.PlayerMovement.FreezePlayer();
-                _moveTo.suspended = true;
-
-                EyeLightObj.SetActive(true);
-
-                _isCaught = true;
-
-                killCooldown = 3;
-
-                _playerCam = playr.gameObject.GetComponentInChildren<Transform>();
-            }
-        }
-        //---------------------------------------------------------------------------------------------------------------------------
-        if (_isCaught && _eyeLight.intensity <= MaxLightLevel)
-        {
-            _eyeLight.intensity += LightRate;
-            _eyeLight.range += LightRate;
-
-            /**
-             * Block of code that let's the player super charge their flashlight
-             * if the shine it on the bad man and have the battery amount
-             */
-            if(Player.BatteryAmount >= MinBatteryAmount)
-            {
-                RaycastHit hit;
-                if (Physics.Raycast(_playerCam.position, _playerCam.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+                //execute nick's onCollisionEnter(Collision collision) code
+                if (_moveTo.chasing) //&& collision.gameObject.CompareTag("Player"))
                 {
-                    if (hit.transform.gameObject == gameObject && Player.LightController.IsOn)
+                    //Freezes the player and bad man
+                    //_rb.isKinematic = true;
+                    Player.PlayerMovement.FreezePlayer();
+                    _moveTo.suspended = true;
+
+                    EyeLightObj.SetActive(true);
+
+                    _isCaught = true;
+
+                    killCooldown = 3;
+
+                    _playerCam = playr.gameObject.GetComponentInChildren<Transform>();
+                }
+            }
+            //---------------------------------------------------------------------------------------------------------------------------
+            if (_isCaught && _eyeLight.intensity <= MaxLightLevel)
+            {
+                _eyeLight.intensity += LightRate;
+                _eyeLight.range += LightRate;
+
+                /**
+                 * Block of code that let's the player super charge their flashlight
+                 * if the shine it on the bad man and have the battery amount
+                 */
+                if (Player.BatteryAmount >= MinBatteryAmount)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(_playerCam.position, _playerCam.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
                     {
-                        StartCoroutine(Stun());
+                        if (hit.transform.gameObject == gameObject && Player.LightController.IsOn)
+                        {
+                            StartCoroutine(Stun());
+                        }
                     }
                 }
             }
+            //Player loses
+            else if (_isCaught)
+            {
+                GameManager.singleton.SetLevel("GameOver", false);
+            }
         }
-        //Player loses
-        else if(_isCaught)
+        else
         {
-            GameManager.singleton.SetLevel("GameOver", false);
+            _eyeLight.intensity = 0;
+            _eyeLight.range = 0;
+            _isCaught = false;
         }
     }
 
