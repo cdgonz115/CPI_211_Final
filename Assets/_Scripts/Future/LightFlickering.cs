@@ -18,7 +18,11 @@ public class LightFlickering : MonoBehaviour
     private void Update()
     {
         if(!inCR)timer += Time.deltaTime;
-        if (!inCR && timer >= timeInterval) StartCoroutine(co);
+        if (!inCR && timer >= timeInterval)
+        {
+            co = Flicker();
+            StartCoroutine(co);
+        }
     }
     IEnumerator Flicker()
     {
