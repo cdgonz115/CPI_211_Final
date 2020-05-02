@@ -10,6 +10,8 @@ public class AISight : MonoBehaviour
     public int playerMissing = -1;
     public AudioSource ads;
     private bool play = true;
+    public bool behindWall;
+    private float timeSeeR = 2f;
     [SerializeField] private AudioClip[] sounds;
 
     //might use the following for hearing
@@ -30,26 +32,43 @@ public class AISight : MonoBehaviour
         selfState = GetComponent<moveTo>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        if(selfState.returning)
+        {
+            timeSeeR -= Time.deltaTime;
+        }
+        if (!selfState.returning && timeSeeR < 2)
+        {
+            timeSeeR = 2;
+        }
+
         if (selfState.searching) play = true;
+        //make-shift onTriggerExit
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        if (Mathf.Abs(player[0].transform.position.x - transform.position.x) > coll.radius && Mathf.Abs(player[0].transform.position.z - transform.position.z) > coll.radius)
+        {
+
+            if (selfState.chasing)
+            {
+                //player is missing!
+                playerMissing = 1;
+                if (Player.IsHiding)
+                {
+                    playerInSight = -1;
+                    selfState.agent.destination = Player.HidingObject.transform.position + Player.HidingObject.transform.forward;//go to where the player last was before they disappeared
+                }
+                else
+                {
+                    playerInSight = 1;
+                }
+            }
+        }
     }
     void OnTriggerStay(Collider other)
     {
-        //bool hiding = player[0].GetComponent<Player>().IsHiding;
         bool hiding = Player.IsHiding;
-        bool behindWall = false;
-
-        //audio player stuff
-        //if (selfState.chasing == 1)
-        //{
-        //    if (!ads.isPlaying && play)
-        //    {
-        //        ads.PlayOneShot(sounds[0]);
-        //        play = false;
-        //    }
-        //    selfState.lastPlayerSight = player[0].transform;
-        //}
+        behindWall = false;
 
         //check if the player is in sight
         if (GameObject.ReferenceEquals(other.gameObject, player[0]))
@@ -64,29 +83,36 @@ public class AISight : MonoBehaviour
             {
                 RaycastHit wallChecker;
 
-                if (Physics.Raycast(transform.position + transform.up/2, directionPlayer.normalized, out wallChecker, coll.radius))//if there is a collider
+                if (Physics.Raycast(transform.position + transform.up / 2, directionPlayer.normalized, out wallChecker, coll.radius))//if there is a collider
                 {
-                    if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.chasing)//if it's the player and we're chasing them
+                    if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && (selfState.chasing || (selfState.returning && timeSeeR <= 0)))//if it's the player and we're chasing them
                     {
                         playerInSight = 1;//we can see the player (there was no wall, so if they are hiding we saw them hide)
-                        playerMissing = -1;
+
                     }
                     else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.stalking)//if it's the player and we're hunting
                     {
                         if (hiding) //Player.IsHiding == true
+                        {
                             playerInSight = -1;//cannot see player, player is hiding
+                        }
                         else
-                            //print("found you!");
+                        {
                             playerInSight = 1;//can see player
-                        playerMissing = -1;
+                        }
+
                     }
                     else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.searching)//if it's the player and we're searching
                     {
                         //print("there you are!");
                         if (hiding) //player[0].isHiding
+                        {
                             playerInSight = -1;//cannot see player, player is hiding
+                        }
                         else
+                        {
                             playerInSight = 1;//can see player
+                        }
                     }
                     else
                     {
@@ -97,37 +123,8 @@ public class AISight : MonoBehaviour
             }
 
         }
-        if (selfState.chasing && hiding == false && behindWall)//if chasing, as long as player is in the range keep chasing unless they hid while we couldn't see them
-        {
-            //print("player is in range although wall");
-            playerInSight = 1;
-        }
-        if (selfState.chasing && hiding && behindWall)//they hid while we are chasing them
-        {
-            //print("player hid");
-            playerInSight = -1;
-            playerMissing = 1;
-            
-            selfState.agent.destination = selfState.lastPlayerSight.position + (2) * player[0].GetComponent<Player>().transform.forward;//go to where the player last was before they disappeared
-        }
-
-        //make-shift onTriggerExit
-        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //if (Mathf.Abs(player[0].transform.position.x - transform.position.x) > coll.radius && Mathf.Abs(player[0].transform.position.z - transform.position.z) > coll.radius)
-        //{
-        //    //print("you've outrun me");
-        //    if (GameObject.ReferenceEquals(other.gameObject, player[0]))//if player is not in vision
-        //    {
-        //        if (selfState.chasing)
-        //        {
-        //            //player is missing!
-        //            playerMissing = 1;
-        //        }
-        //        selfState.agent.destination = selfState.lastPlayerSight.position;//go to where the player last was before they disappeared
-        //        playerInSight = -1;//can no longer see the player
-        //    }
-        //}
 
     }
 }
+
 
