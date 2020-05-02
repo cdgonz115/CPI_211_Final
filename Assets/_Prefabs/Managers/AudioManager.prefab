@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayRSN: 1
-  minTimeRSN: 120
-  maxTimeRSN: 180
+  minTimeRSN: 180
+  maxTimeRSN: 240

@@ -23,15 +23,36 @@ public class FlashlightController : MonoBehaviour
 
     private void Update()
     {
+        //Turns the flash light on and off
         if (Input.GetMouseButton(0) && Player.BatteryAmount > 0 && !Player.IsHiding)
         {
             IsOn = true;
         }
         else
         {
+            //If it was just toggled off then play audio
+            if(IsOn)
+            {
+                AudioManager.singleton.PlayClip("Flashlight Sfx");
+            }
+
             IsOn = false;
         }
 
+        //Plays audio for flash light
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(Player.BatteryAmount <= 0)
+            {
+                AudioManager.singleton.PlayClip("Battery Drained Sfx");
+            }
+            else if(IsOn)
+            {
+                AudioManager.singleton.PlayClip("Flashlight Sfx");
+            }
+        }
+
+        //If else statements that control light flickering
         if(IsOn && Player.BatteryAmount > 0 && !Player.IsHiding && _flickerDurationCount <= 0)
         {
             LightObj.SetActive(true);
