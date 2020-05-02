@@ -17,8 +17,6 @@ public class moveTo : MonoBehaviour
     public bool returning = false;
 
     //roaming route
-    //public Transform[] pathPoints = new Transform[4];
-   // public int pathIndex = 0;
     private Transform playerPos;
     private GameObject[] player;
     public Transform lastPlayerSight;
@@ -26,10 +24,8 @@ public class moveTo : MonoBehaviour
     private bool timeAttack;
     private float randTime;
     private bool startOffset;
-    //public bool caught;
 
     //constants
-    //public float stalkSpeed = 3f;
     public float chaseSpeed = 8f;
     public float searchSpeed = 5f;
     private float offsetTime = 2f;
@@ -57,8 +53,6 @@ public class moveTo : MonoBehaviour
         anim = gameObject.GetComponentInChildren<Animator>();
         startOffset = false;
         stalkObj = null;
-        //caught = false;
-        //offsetTime = 2f;
     }
 
     //state machine
@@ -105,7 +99,6 @@ public class moveTo : MonoBehaviour
         stalking = false;
         chasing = false;
         searching = false;
-        //agent.GetComponent<NavMeshAgent>().isStopped = true;
 
         agent.speed = 0;
         anim.SetFloat("Speed_f", idle);
@@ -131,8 +124,6 @@ public class moveTo : MonoBehaviour
 
         agent.destination = playerPos.position;//chase the player
         
-
-        //print(Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5);
         anim.SetFloat("Speed_f", run);
 
         Player.LightController.IsFlickering = true;
@@ -143,7 +134,6 @@ public class moveTo : MonoBehaviour
     //searching for the player since they "disappeared"
     void Searching()
     {
-        //float offsetTime = 2f;
         startOffset = true;
         //reset timer iff bad man attacked due to timer == 0
         if (timeAttack == true)
@@ -158,8 +148,6 @@ public class moveTo : MonoBehaviour
         searching = true;
         returning = false;
         agent.speed = searchSpeed;
-        //print(Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5);
-        //print(offsetTime);
         
         if (!agent.pathPending && (Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5 || selfSight.playerInSight == 1))
         {
@@ -189,13 +177,10 @@ public class moveTo : MonoBehaviour
         chasing = false;
         searching = false;
 
-        //print("destination is set");
         agent.destination = stalkObj.transform.position;
-        //print(stalkObj.transform.position);
-        //print("this is where he should be going: " + agent.destination);
+
         if (!agent.pathPending && (selfSight.playerInSight == 1 || agent.remainingDistance == agent.stoppingDistance))
         {
-            //print("reached");
             returning = false;
         }
     }
@@ -209,7 +194,6 @@ public class moveTo : MonoBehaviour
         returning = false;
         agent.speed = 0f;
         offsetTime = 2f;
-        //caught = false;
 
         //reset timer iff bad man attacked due to timer == 0
         if(timeAttack == true)
@@ -225,19 +209,5 @@ public class moveTo : MonoBehaviour
 
         //see wayPointSight script for more
 
-        //if (agent.remainingDistance <= agent.stoppingDistance)//if we have arrived at a checkpoint
-        //{
-        //    if (pathIndex < pathPoints.Length - 1)//move on to the next pathPoints.Length
-        //    {
-        //        pathIndex++;//increment
-
-        //    }
-        //    else
-        //    {
-        //        pathIndex = 0;//otherwise, reset to zero
-        //    }
-        //}
-        ////print(pathIndex);
-        //agent.destination = pathPoints[pathIndex].position;//continue stalk route
     }
 }
