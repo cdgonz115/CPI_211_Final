@@ -16,7 +16,7 @@ public class HideInteractable : Interactable
             CollidingPlayer.PlayerCamera.SetActive(true);
             HideCamera.SetActive(false);
         }
-        else if(!CollidingPlayer.IsCaught)
+        else
         {
             Player.IsHiding = true;
             CollidingPlayer.PlayerCamera.SetActive(false);

@@ -266,11 +266,10 @@ MonoBehaviour:
   chasing: 0
   searching: 0
   suspended: 0
-  returning: 0
   lastPlayerSight: {fileID: 0}
+  caught: 0
   chaseSpeed: 8
   searchSpeed: 5
-  stalkObj: {fileID: 0}
 --- !u!114 &9145424988741261923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EyeLightObj: {fileID: 4618107739599821996}
   LightRate: 0.1
-  MaxLightLevel: 25
+  MaxLightLevel: 50
   StunDuration: 6
   MinBatteryAmount: 50
 --- !u!1001 &9145424989678266659
