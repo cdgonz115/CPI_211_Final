@@ -116,6 +116,8 @@ public class CatchPlayer : MonoBehaviour
     /// </summary>
     private IEnumerator Stun()
     {
+        AudioManager.singleton.PlayClip("Supercharge Sfx");
+
         CanvasManager.singleton.Flash();
         EyeLightObj.SetActive(false);
         Player.PlayerMovement.UnfreezePlayer();

@@ -10,6 +10,8 @@ public class SwordPickup : InventoryItem
     {
         base.PerformAction();
 
+        AudioManager.singleton.PlayClip("Sword Pickup Sfx");
+
         for (int x = 0; x < lights.Count; x++)
         {
             List<GameObject> temp = lights[x].GetComponent<BloomingLight>().lights;
