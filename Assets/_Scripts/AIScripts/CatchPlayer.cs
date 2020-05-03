@@ -125,8 +125,7 @@ public class CatchPlayer : MonoBehaviour
     /// </summary>
     private IEnumerator Stun()
     {
-        //GetComponent<AudioSource>().Play();
-        
+        AudioManager.singleton.PlayClip("Supercharge Sfx");
 
         CanvasManager.singleton.Flash();
         EyeLightObj.SetActive(false);
