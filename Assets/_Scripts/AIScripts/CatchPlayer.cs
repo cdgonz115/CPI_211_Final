@@ -29,8 +29,8 @@ public class CatchPlayer : MonoBehaviour
     public float StunDuration;
     public float MinBatteryAmount;
     private float killCooldown;
-    //private AudioSource[] aSources;
-    //private AudioSource ow;
+    private AudioSource[] aSources;
+    private AudioSource ow;
     //private AudioSource fizzle;
 
     private void Awake()
@@ -42,8 +42,8 @@ public class CatchPlayer : MonoBehaviour
         _initEyeLightLevel = _eyeLight.intensity;
         playr = GameObject.FindGameObjectWithTag("Player");
         killCooldown = 0;
-        //AudioSource[] aSources = GetComponents<AudioSource>();
-        //ow = aSources[0];
+        AudioSource[] aSources = GetComponents<AudioSource>();
+        ow = aSources[0];
         //fizzle = aSources[1];
     }
 
@@ -104,7 +104,7 @@ public class CatchPlayer : MonoBehaviour
                 {
                     if (hit.transform.gameObject == gameObject && Player.LightController.IsOn)
                     {
-                        //ow.Play();
+                        ow.Play();
                         //fizzle.Play();
 
                         StartCoroutine(Stun());

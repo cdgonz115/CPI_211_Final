@@ -35,6 +35,9 @@ public class moveTo : MonoBehaviour
     private float run = 1.0f;
     private float walk = 0.5f;
 
+    private AudioSource[] aSources;
+    private AudioSource argh;
+
     private Animator anim;
 
     public GameObject stalkObj;
@@ -53,6 +56,9 @@ public class moveTo : MonoBehaviour
         anim = gameObject.GetComponentInChildren<Animator>();
         startOffset = false;
         stalkObj = null;
+
+        AudioSource[] aSources = GetComponents<AudioSource>();
+        argh = aSources[1];
     }
 
     //state machine
@@ -160,6 +166,7 @@ public class moveTo : MonoBehaviour
                 selfSight.playerMissing = -1;
             }
             //"frustrated" sound effect
+            argh.Play();
             if (Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5)
             {
                 returning = true;//run back to stalk point
