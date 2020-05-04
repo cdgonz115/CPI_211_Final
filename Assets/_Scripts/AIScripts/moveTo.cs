@@ -75,8 +75,11 @@ public class moveTo : MonoBehaviour
     void FixedUpdate()
     {
         timer -= Time.deltaTime;
+        //rightEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
+        //leftEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
 
-        if(startOffset)
+
+        if (startOffset)
         {
             offsetTime -= Time.deltaTime;
         }
