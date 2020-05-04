@@ -11,7 +11,6 @@ public class FlashLightUI : MonoBehaviour
     public Battery[] batteries;
     public GameObject flashLight;
     public GameObject flash;
-    public bool on;
     public float batteryValue;
     // Start is called before the first frame update
     void Start()
@@ -22,17 +21,6 @@ public class FlashLightUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButton(0) && Player.BatteryAmount > 0)
-        {
-            on = true;
-        }
-
-        else if (!Input.GetMouseButton(0))
-        {
-            on = false;
-        }
-
         //These if statements determine the current battery;
         if (batteryValue < 33) // Final battery
         {
@@ -71,7 +59,7 @@ public class FlashLightUI : MonoBehaviour
         }
         
         //If the flashlight is on, all elements are lit;
-        if(on)
+        if(Player.LightController.IsOn)
         {
             flash.SetActive(true);
             flashLight.GetComponent<Image>().color = new Color32(180,180,180,255);

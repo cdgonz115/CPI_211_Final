@@ -10,6 +10,15 @@ using UnityEngine;
 public class ItemConsumer : Interactable
 {
     public InventoryItem ItemToConsume;
+    public string AudioCue;
+
+    protected new void Update()
+    {
+        if (CollidingPlayer != null && Input.GetKeyDown(KeyCode.E))
+        {
+            PerformAction();
+        }
+    }
 
     protected override void PerformAction()
     {
@@ -17,7 +26,17 @@ public class ItemConsumer : Interactable
 
         if(CollidingPlayer.HasItem(ItemToConsume.ItemName))
         {
+            if(!string.IsNullOrEmpty(AudioCue))
+            {
+                AudioManager.singleton.PlayClip(AudioCue);
+            }
+
             CollidingPlayer.RemoveInventory(ItemToConsume.ItemName);
+
+            if(DestroyOnUse)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
