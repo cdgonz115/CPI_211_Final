@@ -44,6 +44,9 @@ public class moveTo : MonoBehaviour
 
     public GameObject stalkObj;
 
+    private GameObject rightEye;
+    private GameObject leftEye;
+
     //init vars
     void Start()
     {
@@ -63,8 +66,9 @@ public class moveTo : MonoBehaviour
         argh = aSources[1];
         chase = aSources[2];
         search = aSources[3];
-        
 
+        rightEye = GameObject.Find("glowEye");
+        leftEye = GameObject.Find("glowEye (1)");
     }
 
     //state machine
@@ -92,6 +96,11 @@ public class moveTo : MonoBehaviour
             {
                 search.Stop();
             }
+
+            //turn off eyes
+            rightEye.SetActive(false);
+            leftEye.SetActive(false);
+
             //set state
             if (timer <= 0)
             {
@@ -112,6 +121,7 @@ public class moveTo : MonoBehaviour
             {
                 search.Play();
             }
+
             //set state
             Searching();//search a bit
         }
@@ -126,6 +136,7 @@ public class moveTo : MonoBehaviour
             {
                 search.Stop();
             }
+
             //set state
             Returning();
         }
@@ -140,6 +151,11 @@ public class moveTo : MonoBehaviour
             {
                 search.Stop();
             }
+
+            //turn on eyes
+            rightEye.SetActive(true);
+            leftEye.SetActive(true);
+
             //set state
             Stalking();//keep stalking
         }
