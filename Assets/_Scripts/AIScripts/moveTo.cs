@@ -37,6 +37,8 @@ public class moveTo : MonoBehaviour
 
     private AudioSource[] aSources;
     private AudioSource argh;
+    private AudioSource chase;
+    private AudioSource search;
 
     private Animator anim;
 
@@ -59,6 +61,10 @@ public class moveTo : MonoBehaviour
 
         AudioSource[] aSources = GetComponents<AudioSource>();
         argh = aSources[1];
+        chase = aSources[2];
+        search = aSources[3];
+        
+
     }
 
     //state machine
@@ -77,7 +83,16 @@ public class moveTo : MonoBehaviour
         }
         else if (selfSight.playerInSight == 1 || timer <= 0)//if the player is seen   // !Player.IsHiding && 
         {
-            //print(selfSight.playerInSight);
+            //manage sounds
+            if(!chase.isPlaying)
+            {
+                chase.Play();
+            }
+            if(search.isPlaying)
+            {
+                search.Stop();
+            }
+            //set state
             if (timer <= 0)
             {
                 timeAttack = true;
@@ -88,14 +103,44 @@ public class moveTo : MonoBehaviour
         }
         else if ((Player.IsHiding && selfSight.playerMissing == 1) || searching)//if they went missing while they were being chased //|| selfSight.behindWall
         {
+            //manage sounds
+            if(chase.isPlaying)
+            {
+                chase.Stop();
+            }
+            if (!search.isPlaying)
+            {
+                search.Play();
+            }
+            //set state
             Searching();//search a bit
         }
         else if(returning)//&& selfSight.playerInSight == -1
         {
+            //manage sounds
+            if (chase.isPlaying)
+            {
+                chase.Stop();
+            }
+            if (search.isPlaying)
+            {
+                search.Stop();
+            }
+            //set state
             Returning();
         }
         else//otherwise
         {
+            //manage sounds
+            if (chase.isPlaying)
+            {
+                chase.Stop();
+            }
+            if (search.isPlaying)
+            {
+                search.Stop();
+            }
+            //set state
             Stalking();//keep stalking
         }
     }
@@ -113,7 +158,8 @@ public class moveTo : MonoBehaviour
     //chasing the player by running at them according to the navmesh
     void Chasing()
     {
-        
+        //AudioManager.singleton.PlayClip("(loop) Burning Pulse");
+        //chase.Play();
         //reset timer iff bad man attacked due to timer == 0
         if (timeAttack == true)
         {
@@ -143,6 +189,7 @@ public class moveTo : MonoBehaviour
     //searching for the player since they "disappeared"
     void Searching()
     {
+        //chase.Stop();
         startOffset = true;
         //reset timer iff bad man attacked due to timer == 0
         if (timeAttack == true)
@@ -188,6 +235,7 @@ public class moveTo : MonoBehaviour
         searching = false;
 
         agent.destination = stalkObj.transform.position;
+        anim.SetFloat("Speed_f", walk);
 
         if (!agent.pathPending && (selfSight.playerInSight == 1 || agent.remainingDistance == agent.stoppingDistance))
         {
