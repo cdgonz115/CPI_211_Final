@@ -17,6 +17,8 @@ public class VikingWaterController : MonoBehaviour
             if (player != null && player.HasItem("Torch"))
             {
                 player.RemoveInventory("Torch");
+
+                AudioManager.singleton.PlayClip("Torch Out Sfx");
             }
         }
     }
