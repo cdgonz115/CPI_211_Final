@@ -116,6 +116,11 @@ public class moveTo : MonoBehaviour
             timeAttack = false;
         }
 
+        if(!chasing)
+        {
+            AudioManager.singleton.PlayClip("Chasing Sfx");
+        }
+
         stalking = false;
         chasing = true;
         searching = false;
@@ -127,8 +132,6 @@ public class moveTo : MonoBehaviour
         anim.SetFloat("Speed_f", run);
 
         Player.LightController.IsFlickering = true;
-        
-
     }
 
     //searching for the player since they "disappeared"

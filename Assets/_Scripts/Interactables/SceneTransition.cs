@@ -17,6 +17,25 @@ public class SceneTransition : Interactable
             Player.KeyCount++;
         }
 
+        StartCoroutine(WaitChangeScene());
+    }
+
+    /// <summary>
+    /// Coroutine that waits for the audio clip to play
+    /// before transitiioning levels
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitChangeScene()
+    {
+        YieldInstruction delay = new WaitForEndOfFrame();
+
+        GameObject sfx = AudioManager.singleton.PlayClip("Enter Level Sfx");
+
+        while(sfx != null)
+        {
+            yield return delay;
+        }
+
         GameManager.singleton.SetLevel(NewSceneName);
     }
 }
