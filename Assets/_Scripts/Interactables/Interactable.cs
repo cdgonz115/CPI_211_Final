@@ -17,6 +17,8 @@ public class Interactable : MonoBehaviour
 
     public Player CollidingPlayer;
 
+    public string AudioCue;
+
     protected void OnDestroy()
     {
         CanvasManager.singleton.DeactivateInteractable();
@@ -53,5 +55,11 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    protected virtual void PerformAction() { }
+    protected virtual void PerformAction() 
+    {
+        if(!string.IsNullOrEmpty(AudioCue))
+        {
+            AudioManager.singleton.PlayClip(AudioCue);
+        }
+    }
 }

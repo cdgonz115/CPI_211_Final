@@ -126,3 +126,4 @@ MonoBehaviour:
   ActionDescription: Refill Battery
   DestroyOnUse: 1
   CollidingPlayer: {fileID: 0}
+  AudioCue: Battery Sfx

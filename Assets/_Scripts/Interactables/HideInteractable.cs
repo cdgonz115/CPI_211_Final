@@ -10,8 +10,6 @@ public class HideInteractable : Interactable
     {
         base.PerformAction();
 
-        AudioManager.singleton.PlayClip("Hide Sfx");
-
         if(Player.IsHiding)
         {
             Player.IsHiding = false;

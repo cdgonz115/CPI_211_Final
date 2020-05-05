@@ -8,8 +8,6 @@ public class BatteryInteractable : Interactable
     {
         base.PerformAction();
 
-        AudioManager.singleton.PlayClip("Battery Sfx");
-
         Player.SetBatteryAmount(100);
     }
 }
