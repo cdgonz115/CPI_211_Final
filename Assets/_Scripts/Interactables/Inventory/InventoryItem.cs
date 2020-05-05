@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,10 @@ public class InventoryItem : Interactable
 
     private void Awake()
     {
-        ActionDescription = "Pickup " + ItemName;
+        if(string.IsNullOrEmpty(ActionDescription))
+        {
+            ActionDescription = "Pickup " + ItemName;
+        }
     }
 
     protected override void PerformAction()

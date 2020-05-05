@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
 
     public void AddInventory(InventoryItem item)
     {
-        if (!_inventory.ContainsKey(item.name))
+        if (!_inventory.ContainsKey(item.ItemName))
         {
             GameObject itemUI = Instantiate(item.UIPrefab, CanvasManager.singleton.InventoryParent);
             item.SpawnedUI = itemUI;
