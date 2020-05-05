@@ -47,10 +47,13 @@ public class CanvasManager : MonoBehaviour
 
     #region Interactable's
 
-    public void ActivateInteractable(string description)
+    public void ActivateInteractable(string description, bool useDescription = false)
     {
         InteractionText.gameObject.SetActive(true);
-        InteractionText.text = "Press 'E' to " + description;
+        if (!useDescription)
+            InteractionText.text = "Press 'E' to " + description;
+        else
+            InteractionText.text = description;
     }
 
     public void DeactivateInteractable()
