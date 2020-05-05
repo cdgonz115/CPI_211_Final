@@ -6,7 +6,7 @@ using UnityEngine;
 /// Simple class that removes the torch item from the player's
 /// inventory when they collide
 /// </summary>
-public class WaterController : MonoBehaviour
+public class VikingWaterController : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
