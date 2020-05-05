@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/GameOver.unity
     guid: d1d8e509822f3de4aad5200ca941f51d
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/Museum.unity
     guid: 7ed6f1e132b3e7448822c812b7f13bf1
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Scenes/Samurai.unity
     guid: 8a3aac06d87d93c4f8453240d49e0893
   m_configObjects: {}

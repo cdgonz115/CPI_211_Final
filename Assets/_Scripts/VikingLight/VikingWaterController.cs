@@ -6,15 +6,15 @@ using UnityEngine;
 /// Simple class that removes the torch item from the player's
 /// inventory when they collide
 /// </summary>
-public class WaterController : MonoBehaviour
+public class VikingWaterController : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
+            Player player = other.GetComponent<Player>();
 
-            if(player != null && player.HasItem("Torch"))
+            if (player != null && player.HasItem("Torch"))
             {
                 player.RemoveInventory("Torch");
             }
