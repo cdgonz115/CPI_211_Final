@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class lightsonOff : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class lightsonOff : MonoBehaviour
     public int clipSize;
     public int clipCount;
     public int reloadTime; 
+
     void Start()
     {
         canShoot = true;
