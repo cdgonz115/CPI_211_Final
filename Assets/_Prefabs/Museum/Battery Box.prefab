@@ -70,6 +70,7 @@ MonoBehaviour:
   ActionDescription: Refill Battery
   DestroyOnUse: 0
   CollidingPlayer: {fileID: 0}
+  AudioCue: Battery Sfx
 --- !u!135 &1517104344232789238
 SphereCollider:
   m_ObjectHideFlags: 0
