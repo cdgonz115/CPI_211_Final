@@ -78,11 +78,6 @@ public class Player : MonoBehaviour
         BatteryAmount = newAmount;
     }
 
-    public static void SetBatteryAmount()
-    {
-        SetBatteryAmount(BatteryAmount - BatteryDrainRate);
-    }
-
     #endregion
 
     #region Inventory
