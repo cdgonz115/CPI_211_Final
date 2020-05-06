@@ -35,9 +35,17 @@ public class moveTo : MonoBehaviour
     private float run = 1.0f;
     private float walk = 0.5f;
 
+    private AudioSource[] aSources;
+    private AudioSource argh;
+    private AudioSource chase;
+    private AudioSource search;
+
     private Animator anim;
 
     public GameObject stalkObj;
+
+    private GameObject rightEye;
+    private GameObject leftEye;
 
     //init vars
     void Start()
@@ -53,14 +61,25 @@ public class moveTo : MonoBehaviour
         anim = gameObject.GetComponentInChildren<Animator>();
         startOffset = false;
         stalkObj = null;
+
+        AudioSource[] aSources = GetComponents<AudioSource>();
+        argh = aSources[1];
+        chase = aSources[2];
+        search = aSources[3];
+
+        rightEye = GameObject.Find("glowEye");
+        leftEye = GameObject.Find("glowEye (1)");
     }
 
     //state machine
     void FixedUpdate()
     {
         timer -= Time.deltaTime;
+        //rightEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
+        //leftEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
 
-        if(startOffset)
+
+        if (startOffset)
         {
             offsetTime -= Time.deltaTime;
         }
@@ -71,7 +90,21 @@ public class moveTo : MonoBehaviour
         }
         else if (selfSight.playerInSight == 1 || timer <= 0)//if the player is seen   // !Player.IsHiding && 
         {
-            //print(selfSight.playerInSight);
+            //manage sounds
+            if(!chase.isPlaying)
+            {
+                chase.Play();
+            }
+            if(search.isPlaying)
+            {
+                search.Stop();
+            }
+
+            //turn off eyes
+            rightEye.SetActive(false);
+            leftEye.SetActive(false);
+
+            //set state
             if (timer <= 0)
             {
                 timeAttack = true;
@@ -82,14 +115,51 @@ public class moveTo : MonoBehaviour
         }
         else if ((Player.IsHiding && selfSight.playerMissing == 1) || searching)//if they went missing while they were being chased //|| selfSight.behindWall
         {
+            //manage sounds
+            if(chase.isPlaying)
+            {
+                chase.Stop();
+            }
+            if (!search.isPlaying)
+            {
+                search.Play();
+            }
+
+            //set state
             Searching();//search a bit
         }
         else if(returning)//&& selfSight.playerInSight == -1
         {
+            //manage sounds
+            if (chase.isPlaying)
+            {
+                chase.Stop();
+            }
+            if (search.isPlaying)
+            {
+                search.Stop();
+            }
+
+            //set state
             Returning();
         }
         else//otherwise
         {
+            //manage sounds
+            if (chase.isPlaying)
+            {
+                chase.Stop();
+            }
+            if (search.isPlaying)
+            {
+                search.Stop();
+            }
+
+            //turn on eyes
+            rightEye.SetActive(true);
+            leftEye.SetActive(true);
+
+            //set state
             Stalking();//keep stalking
         }
     }
@@ -107,7 +177,8 @@ public class moveTo : MonoBehaviour
     //chasing the player by running at them according to the navmesh
     void Chasing()
     {
-        
+        //AudioManager.singleton.PlayClip("(loop) Burning Pulse");
+        //chase.Play();
         //reset timer iff bad man attacked due to timer == 0
         if (timeAttack == true)
         {
@@ -137,6 +208,7 @@ public class moveTo : MonoBehaviour
     //searching for the player since they "disappeared"
     void Searching()
     {
+        //chase.Stop();
         startOffset = true;
         //reset timer iff bad man attacked due to timer == 0
         if (timeAttack == true)
@@ -160,6 +232,7 @@ public class moveTo : MonoBehaviour
                 selfSight.playerMissing = -1;
             }
             //"frustrated" sound effect
+            argh.Play();
             if (Mathf.Abs(agent.remainingDistance - agent.stoppingDistance) <= 5)
             {
                 returning = true;//run back to stalk point
@@ -181,6 +254,7 @@ public class moveTo : MonoBehaviour
         searching = false;
 
         agent.destination = stalkObj.transform.position;
+        anim.SetFloat("Speed_f", walk);
 
         if (!agent.pathPending && (selfSight.playerInSight == 1 || agent.remainingDistance == agent.stoppingDistance))
         {

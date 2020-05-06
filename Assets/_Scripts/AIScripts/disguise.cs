@@ -19,7 +19,7 @@ public class disguise : MonoBehaviour
     {
        if (ready)
        {
-            randomNum = (int)Random.Range(0.0f, numChildren);
+            randomNum = (int)Random.Range(0.0f, numChildren - 3);
             for(int i = 0; i < numChildren; i++)
             {
                 if(gameObject.transform.GetChild(0).gameObject.transform.GetChild(i) == gameObject.transform.GetChild(0).gameObject.transform.GetChild(randomNum))
