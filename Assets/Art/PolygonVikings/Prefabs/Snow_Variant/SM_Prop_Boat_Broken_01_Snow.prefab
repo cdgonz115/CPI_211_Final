@@ -162,6 +162,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hiding Spot
       objectReference: {fileID: 0}
+    - target: {fileID: 5683920262817359402, guid: 154a2ee978a99e342b130ffde026969f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.02
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 154a2ee978a99e342b130ffde026969f, type: 3}
 --- !u!4 &6826059691977470513 stripped
