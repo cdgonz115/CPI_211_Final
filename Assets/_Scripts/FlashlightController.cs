@@ -56,7 +56,7 @@ public class FlashlightController : MonoBehaviour
         if(IsOn && Player.BatteryAmount > 0 && !Player.IsHiding && _flickerDurationCount <= 0)
         {
             LightObj.SetActive(true);
-            Player.SetBatteryAmount();
+            Player.BatteryAmount -= Player.BatteryDrainRate * Time.deltaTime;
 
             if(IsFlickering)
             {
