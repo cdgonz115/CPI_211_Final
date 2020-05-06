@@ -6,7 +6,10 @@ public class StatueLight : MonoBehaviour
 {
     public GameObject[] statues;
     public GameObject lightPrefab;
+    public Player CollidingPlayer;
+    public InventoryItem ItemToConsume;
     private GameObject SLight;
+    public GameObject ice;
     private int closest;
 
     private void Start()
@@ -15,7 +18,16 @@ public class StatueLight : MonoBehaviour
     }
     private void Update()
     {
-        float dis=closestStatue();
+        float dis = 0;
+        if (CollidingPlayer.HasItem(ItemToConsume.ItemName) || ice == null)
+        {
+            closest = 3;
+            dis = Vector3.Distance(transform.position, statues[closest].transform.position);
+        } 
+        else 
+        {
+            dis = closestStatue();
+        }
         SLight.transform.position = transform.position - (transform.position - statues[closest].transform.position) * .007f;
         if(dis <= 500f) SLight.GetComponent<Light>().intensity= dis / 500f;
     }
