@@ -109,6 +109,7 @@ MonoBehaviour:
   ActionDescription: hide
   DestroyOnUse: 0
   CollidingPlayer: {fileID: 0}
+  AudioCue: Hide Sfx
   HideCamera: {fileID: 5683920262816872970}
 --- !u!1001 &5683920262816971950
 PrefabInstance:

@@ -10,7 +10,6 @@ using UnityEngine;
 public class ItemConsumer : Interactable
 {
     public InventoryItem ItemToConsume;
-    public string AudioCue;
     public GameObject iceBlock;
 
     protected new void Update()
@@ -23,8 +22,6 @@ public class ItemConsumer : Interactable
 
     protected override void PerformAction()
     {
-        base.PerformAction();
-
         if(CollidingPlayer.HasItem(ItemToConsume.ItemName))
         {
             if(!string.IsNullOrEmpty(AudioCue))

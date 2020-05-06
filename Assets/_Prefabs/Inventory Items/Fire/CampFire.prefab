@@ -125,6 +125,7 @@ MonoBehaviour:
   ActionDescription: Light Torch
   DestroyOnUse: 0
   CollidingPlayer: {fileID: 0}
+  AudioCue: Torch Lit Sfx
   ItemName: Torch
   UIPrefab: {fileID: 4601247625991346290, guid: cc7025b4830c14743b61f4c278ce262a,
     type: 3}
