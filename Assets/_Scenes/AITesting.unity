@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 236138945}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -435,6 +435,21 @@ PrefabInstance:
     - target: {fileID: 4232917174339320149, guid: eaa735abab208524a98b6e5cb0b2026c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232917174340921173, guid: eaa735abab208524a98b6e5cb0b2026c,
+        type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232917174340921173, guid: eaa735abab208524a98b6e5cb0b2026c,
+        type: 3}
+      propertyPath: field of view
+      value: 26.991467
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232917174340921173, guid: eaa735abab208524a98b6e5cb0b2026c,
+        type: 3}
+      propertyPath: m_Depth
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -696,7 +711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &1966146357
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -753,7 +768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &2142784358
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -968,6 +983,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC (Sci)
       objectReference: {fileID: 0}
+    - target: {fileID: 4040967544255998244, guid: 1250e47cf3bc3904b95a2a9699cd0699,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4040967544255998255, guid: 1250e47cf3bc3904b95a2a9699cd0699,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1115,82 +1135,72 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9141970564474696540, guid: af2b4639bf717324299ec9fa6d4a7e5c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: af2b4639bf717324299ec9fa6d4a7e5c, type: 3}
---- !u!1001 &9145424989278170842
+--- !u!1001 &7998431416913630951
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9145424988741261930, guid: 127b039171240bd479f2a6e3f510ab4c,
-        type: 3}
-      propertyPath: m_Name
-      value: The Bad Man (Sci)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261930, guid: 127b039171240bd479f2a6e3f510ab4c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9145424988741261934, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537555, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9203533437040837781, guid: 127b039171240bd479f2a6e3f510ab4c,
+    - target: {fileID: 7998431417450537559, guid: 1eaf2fb4a7e084f4cab00f970ff378ab,
         type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1de385df2ff713a41adfcbbb63b8af91, type: 2}
+      propertyPath: m_Name
+      value: The Bad Man (Sam)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 127b039171240bd479f2a6e3f510ab4c, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 1eaf2fb4a7e084f4cab00f970ff378ab, type: 3}
