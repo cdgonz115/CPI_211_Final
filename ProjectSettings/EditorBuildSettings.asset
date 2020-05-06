@@ -6,15 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/Future.unity
-    guid: 5c6db2086ab49934db4dc5a7bac2282f
-  - enabled: 1
-    path: Assets/_Scenes/GameOver.unity
-    guid: d1d8e509822f3de4aad5200ca941f51d
-  - enabled: 1
     path: Assets/_Scenes/Museum.unity
     guid: 7ed6f1e132b3e7448822c812b7f13bf1
   - enabled: 1
+    path: Assets/_Scenes/Future.unity
+    guid: 5c6db2086ab49934db4dc5a7bac2282f
+  - enabled: 1
     path: Assets/_Scenes/Samurai.unity
     guid: 8a3aac06d87d93c4f8453240d49e0893
+  - enabled: 1
+    path: Assets/_Scenes/Vikings.unity
+    guid: c4d5b3d2b912aa746b19170692e088e7
+  - enabled: 1
+    path: Assets/_Scenes/GONew.unity
+    guid: 34d82eb8864efbb4bbcbc1c6e1d1a46a
   m_configObjects: {}
