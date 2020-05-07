@@ -35,7 +35,7 @@ public class MuseumDoor : Interactable
 
         if(Player.KeyCount == 3)
         {
-            print("Win");
+            Destroy(gameObject);
         }
     }
 }
