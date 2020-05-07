@@ -30,7 +30,7 @@ public class ShowDroneCinematic : MonoBehaviour
         //Moves the camera to the pivot
         if(_movingToPivot)
         {
-            transform.position += Vector3.Normalize(CamPivot.position - transform.position) * MoveSpeed;
+            transform.position += Vector3.Normalize(CamPivot.position - transform.position) * MoveSpeed * Time.deltaTime;
 
             if(Vector3.Distance(CamPivot.position, transform.position) <= MinPivotDist)
             {
@@ -55,7 +55,7 @@ public class ShowDroneCinematic : MonoBehaviour
         //Moves the camera closer to the drone after it has rotated
         if(_movingToDrone)
         {
-            Vector3 moveVector = Vector3.Normalize(Drone.position - transform.position) * MoveSpeed;
+            Vector3 moveVector = Vector3.Normalize(Drone.position - transform.position) * MoveSpeed * Time.deltaTime;
 
             transform.position += moveVector;
             _distMoved += moveVector.magnitude;
