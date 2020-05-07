@@ -15534,23 +15534,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 731744071}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &903081981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903081980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea491423965024c46b67e655ed167b4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActionDescription: Go to the Future
-  DestroyOnUse: 0
-  CollidingPlayer: {fileID: 0}
-  AudioCue: Enter Level Sfx
-  NewSceneName: Future
 --- !u!54 &903081982
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15567,19 +15550,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &903081983
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903081980}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &903081987 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4598785555926140, guid: dbf6bcdd65b2193449fd6ca552a72b95,
@@ -21202,8 +21172,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.1491947, y: 1, z: 4.159525}
-  m_Center: {x: -0.13581944, y: 0, z: 0.049887657}
+  m_Size: {x: 4.6638355, y: 1, z: 4.9179726}
+  m_Center: {x: -0.101468086, y: 0, z: -0.03730011}
 --- !u!1001 &1209462799
 PrefabInstance:
   m_ObjectHideFlags: 0
