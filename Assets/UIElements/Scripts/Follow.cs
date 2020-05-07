@@ -19,6 +19,6 @@ public class Follow : MonoBehaviour {
          Vector3 pos = Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(20);
          Vector3 invertedMousePos = new Vector3(pos.x * (float).25, pos.y*(float).25, -pos.z);
 
-         eye.transform.LookAt(invertedMousePos);
+         eye.transform.LookAt(invertedMousePos + offset);
      }
  }
