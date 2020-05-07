@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                PlayerMovement.UnfreezePlayer();
+                PlayerMovement.ResetMovement();
                 HidingObject = null;
             }
         }
@@ -76,11 +76,6 @@ public class Player : MonoBehaviour
     public static void SetBatteryAmount(float newAmount)
     {
         BatteryAmount = newAmount;
-    }
-
-    public static void SetBatteryAmount()
-    {
-        SetBatteryAmount(BatteryAmount - BatteryDrainRate);
     }
 
     #endregion
@@ -153,7 +148,18 @@ public struct PlayerMovement
         _fpsController.JumpSpeed = 0;
     }
 
-    public void UnfreezePlayer()
+    /// <summary>
+    /// Method that modifies the movement speeds of the player.
+    /// </summary>
+    /// <param name="modifier">A value that is multiplied with the movement valuse</param>
+    public void ModifySpeed(float modifier)
+    {
+        _fpsController.WalkSpeed *= modifier;
+        _fpsController.RunSpeed *= modifier;
+        _fpsController.JumpSpeed *= modifier;
+    }
+
+    public void ResetMovement()
     {
         _fpsController.WalkSpeed = WalkSpeed;
         _fpsController.RunSpeed = RunSpeed;

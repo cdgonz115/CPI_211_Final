@@ -156,6 +156,7 @@ MonoBehaviour:
   ActionDescription: 
   DestroyOnUse: 1
   CollidingPlayer: {fileID: 0}
+  AudioCue: Sword Pickup Sfx
   ItemName: Sword
   UIPrefab: {fileID: 3110255270224920398, guid: 304f487d0d375f948b8b71f034c38eda,
     type: 3}
