@@ -6,7 +6,6 @@ public class TurnOffLights : Interactable
 {
     public PowerRotator turnBine1;
     public PowerRotator turnBine2;
-    public float minTurbineSpeed;
     public float turbineDecreaseSpeed;
     public GameObject lightO;
     public GameObject lightT;
@@ -42,10 +41,10 @@ public class TurnOffLights : Interactable
         playerCam.SetActive(false);
         dayLight.SetActive(false);
         turbineCam.SetActive(true);
-        while(turnBine1.rotateBy > minTurbineSpeed || turnBine2.rotateBy > minTurbineSpeed)
+        while(turnBine1.rotateBy > 0 || turnBine2.rotateBy > 0)
         {
-            turnBine1.rotateBy *= turbineDecreaseSpeed;
-            turnBine2.rotateBy *= turbineDecreaseSpeed;
+            turnBine1.rotateBy -= turbineDecreaseSpeed * Time.deltaTime;
+            turnBine2.rotateBy -= turbineDecreaseSpeed * Time.deltaTime;
 
             yield return frameDelay;
         }
