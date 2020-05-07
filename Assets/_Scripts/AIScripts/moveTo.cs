@@ -20,6 +20,8 @@ public class moveTo : MonoBehaviour
     private Transform playerPos;
     private GameObject[] player;
     public Transform lastPlayerSight;
+    private float teleportCooldown=10;
+    private float teleportTimer=0;
     private float timer;
     private bool timeAttack;
     private float randTime;
@@ -77,7 +79,9 @@ public class moveTo : MonoBehaviour
     //state machine
     void FixedUpdate()
     {
+       
         timer -= Time.deltaTime;
+        teleportTimer -= Time.deltaTime;
         //rightEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
         //leftEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
 
@@ -109,6 +113,12 @@ public class moveTo : MonoBehaviour
             leftEye.SetActive(false);
 
             //set state
+            if (Vector3.Distance(player[0].transform.position, transform.position) > 30 && teleportTimer<=0)
+            {
+                teleportTimer = teleportCooldown;
+                transform.position = player[0].GetComponent<DistanceToStalkpoints>().closest.transform.position;
+                agent.destination = playerPos.position;
+            }
             if (timer <= 0)
             {
                 timeAttack = true;
@@ -116,6 +126,7 @@ public class moveTo : MonoBehaviour
             }
             else
                 Chasing();
+             
         }
         else if ((Player.IsHiding && selfSight.playerMissing == 1) || searching)//if they went missing while they were being chased //|| selfSight.behindWall
         {
