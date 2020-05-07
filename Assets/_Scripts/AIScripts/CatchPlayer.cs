@@ -90,8 +90,8 @@ public class CatchPlayer : MonoBehaviour
         //---------------------------------------------------------------------------------------------------------------------------
         if (_isCaught && _eyeLight.intensity <= MaxLightLevel)
         {
-            _eyeLight.intensity += LightRate * Time.deltaTime;
-            _eyeLight.range += LightRate * Time.deltaTime;
+            _eyeLight.intensity += LightRate;
+            _eyeLight.range += LightRate;
 
             /**
              * Block of code that let's the player super charge their flashlight
@@ -115,7 +115,7 @@ public class CatchPlayer : MonoBehaviour
         //Player loses
         else if(_isCaught)
         {
-            GameManager.singleton.SetLevel("GONew", false);
+            GameManager.singleton.SetLevel("GameOver", false);
         }
     }
 
