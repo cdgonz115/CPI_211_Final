@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 
     [Header("Misc")]
     public static PlayerMovement PlayerMovement;    //x = walk speed, y = run speed, z = jump speed
-    public static int KeyCount = 0;
+    public static int KeyCount = 3;
     public static bool HasLevelKey = false;
     private Dictionary<string, InventoryItem> _inventory;
 
