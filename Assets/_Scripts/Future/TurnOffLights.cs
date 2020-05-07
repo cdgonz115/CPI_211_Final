@@ -18,6 +18,7 @@ public class TurnOffLights : Interactable
     public GameObject cityCam;
     public GameObject cinematicCamera;
     public GameObject playerCam;
+    public AudioSource audioS;
     public DroneCrash drone;
 
     private bool _hasTurnedOff = false;
@@ -77,7 +78,10 @@ public class TurnOffLights : Interactable
 
         //Spawns in bad man
         StalkPointParent.SetActive(true);
-        Instantiate(BadManPrefab);
+        var temp =Instantiate(BadManPrefab);
+        temp.GetComponent<moveTo>().backgroundMusic = audioS;
+        temp.GetComponent<moveTo>().bmMaxVolume = audioS.volume;
+        temp.GetComponent<moveTo>().bmMinVolume = .05f;
     }
 
     protected override void PerformAction()
