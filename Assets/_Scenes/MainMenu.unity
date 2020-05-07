@@ -364,8 +364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eye: {fileID: 220636606}
-  xOffset: 1920
-  yOffset: 1080
+  xOffset: -7
+  yOffset: 0
 --- !u!1 &333192758
 GameObject:
   m_ObjectHideFlags: 0
