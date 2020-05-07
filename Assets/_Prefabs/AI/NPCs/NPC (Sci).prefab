@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4040967544255998242}
   - component: {fileID: 4040967544255998243}
   - component: {fileID: 4040967544255998254}
+  - component: {fileID: 4438878001009431940}
   m_Layer: 0
   m_Name: NPC (Sci)
   m_TagString: Untagged
@@ -131,6 +132,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917323bc9a1a605488b684b462ea8dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idle: 1
+--- !u!114 &4438878001009431940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040967544255998244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87755ee8e8fb984bb8493799fc66249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dest1: {fileID: 0}
+  dest2: {fileID: 0}
+  go: 0
+  firstOne: 0
+  timer: 5
+  timerReset: 5
 --- !u!1001 &4040967544791953957
 PrefabInstance:
   m_ObjectHideFlags: 0
