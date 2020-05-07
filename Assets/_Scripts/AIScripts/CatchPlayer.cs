@@ -129,7 +129,7 @@ public class CatchPlayer : MonoBehaviour
 
         CanvasManager.singleton.Flash();
         EyeLightObj.SetActive(false);
-        Player.PlayerMovement.UnfreezePlayer();
+        Player.PlayerMovement.ResetMovement();
         _isCaught = false;
         Player.SetBatteryAmount(0);
 
