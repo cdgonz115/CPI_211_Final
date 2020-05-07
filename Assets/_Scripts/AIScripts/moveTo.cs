@@ -39,6 +39,9 @@ public class moveTo : MonoBehaviour
     private AudioSource argh;
     private AudioSource chase;
     private AudioSource search;
+    public AudioSource backgroundMusic;
+    public float bmMaxVolume;
+    public float bmMinVolume;
 
     private Animator anim;
 
@@ -60,7 +63,7 @@ public class moveTo : MonoBehaviour
         timer = randTime;
         anim = gameObject.GetComponentInChildren<Animator>();
         startOffset = false;
-        stalkObj = null;
+        //stalkObj = null;
 
         AudioSource[] aSources = GetComponents<AudioSource>();
         argh = aSources[1];
@@ -93,6 +96,7 @@ public class moveTo : MonoBehaviour
             //manage sounds
             if(!chase.isPlaying)
             {
+                backgroundMusic.volume = bmMinVolume;
                 chase.Play();
             }
             if(search.isPlaying)
@@ -154,7 +158,7 @@ public class moveTo : MonoBehaviour
             {
                 search.Stop();
             }
-
+            backgroundMusic.volume = bmMaxVolume;
             //turn on eyes
             rightEye.SetActive(true);
             leftEye.SetActive(true);
