@@ -187,10 +187,10 @@ public class moveTo : MonoBehaviour
             timeAttack = false;
         }
 
-        if(!chasing)
-        {
-            AudioManager.singleton.PlayClip("Chasing Sfx");
-        }
+        //if(!chasing)
+        //{
+        //    AudioManager.singleton.PlayClip("Chasing Sfx");
+        //}
 
         stalking = false;
         chasing = true;
