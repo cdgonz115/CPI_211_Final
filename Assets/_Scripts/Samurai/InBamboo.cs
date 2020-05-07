@@ -11,6 +11,7 @@ public class InBamboo : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             npc.GetComponent<NPCscriptedMove>().enabled = true;
+            Destroy(this);
         }
     }
 }
