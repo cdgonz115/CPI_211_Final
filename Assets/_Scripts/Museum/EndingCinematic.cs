@@ -13,6 +13,7 @@ public class EndingCinematic : MonoBehaviour
     public GameObject neck;
     public Image blackScreen;
     public GameObject ui;
+    public GameObject BackgroundMusic;
     private bool started = false;
 
     IEnumerator cutScene()
@@ -23,6 +24,7 @@ public class EndingCinematic : MonoBehaviour
         plyr.GetComponentInChildren<Camera>().enabled = false;
         cam1.SetActive(true);
         ui.SetActive(false);
+        BackgroundMusic.SetActive(false);
         for (int x = 0; x < 5 * 20; x++)
         {
             cam1.transform.position += new Vector3(0, 0, 1f/10f);
@@ -41,6 +43,7 @@ public class EndingCinematic : MonoBehaviour
         cam1.SetActive(false);
         started = true;
         cam2.SetActive(true);
+        AudioManager.singleton.PlayClip("Sport Sfx");
         for (int x = 0; x < 5 * 10; x++)
         {
             car.transform.position += new Vector3(x/100f, 0, 0);
