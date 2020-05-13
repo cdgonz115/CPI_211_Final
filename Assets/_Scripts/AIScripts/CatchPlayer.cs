@@ -25,7 +25,7 @@ public class CatchPlayer : MonoBehaviour
     private float _initEyeLightLevel;
 
     [Header("Misc")]
-    private bool _isCaught;
+    public bool _isCaught;
     public float StunDuration;
     public float MinBatteryAmount;
     private float killCooldown;
@@ -123,8 +123,9 @@ public class CatchPlayer : MonoBehaviour
     /// Coroutine used to stun the bad man. Also handles re-enabling
     /// the bad man after the stun
     /// </summary>
-    private IEnumerator Stun()
+    public IEnumerator Stun()
     {
+        GetComponent<AISight>().stunned = true;
         AudioManager.singleton.PlayClip("Supercharge Sfx");
 
         CanvasManager.singleton.Flash();
@@ -137,6 +138,8 @@ public class CatchPlayer : MonoBehaviour
 
         //_rb.isKinematic = false;
         _moveTo.suspended = false;
+        GetComponent<AISight>().stunned = false;
+        _moveTo.searching = true;
         _eyeLight.intensity = _initEyeLightLevel;
 
         yield return null;
@@ -153,7 +156,7 @@ public class CatchPlayer : MonoBehaviour
 
         if(Player.IsHiding && _moveTo.chasing)
         {
-            if (Mathf.Abs(gameObject.transform.position.y - playr.transform.position.y) <= 10)
+            if (Mathf.Abs(gameObject.transform.position.y - playr.transform.position.y) <= 5)
             {
                 colY = true;
             }
@@ -173,7 +176,7 @@ public class CatchPlayer : MonoBehaviour
 
         if (Player.IsHiding && _moveTo.chasing)
         {
-            if (Mathf.Abs(gameObject.transform.position.x - playr.transform.position.x) <= 10)
+            if (Mathf.Abs(gameObject.transform.position.x - playr.transform.position.x) <= 5)
             {
                 colX = true;
             }
@@ -193,7 +196,7 @@ public class CatchPlayer : MonoBehaviour
 
         if (Player.IsHiding && _moveTo.chasing)
         {
-            if (Mathf.Abs(gameObject.transform.position.z - playr.transform.position.z) <= 10)
+            if (Mathf.Abs(gameObject.transform.position.z - playr.transform.position.z) <= 5)
             {
                 colZ = true;
             }

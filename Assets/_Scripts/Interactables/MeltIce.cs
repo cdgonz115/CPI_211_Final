@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeltIce : ItemConsumer
 {
     public GameObject iceBlock;
+    public GameObject man;
 
     protected override void PerformAction()
     {
@@ -14,7 +15,7 @@ public class MeltIce : ItemConsumer
             {
                 AudioManager.singleton.PlayClip(AudioCue);
             }
-
+            man.GetComponent<moveTo>().chasing=true;
             CollidingPlayer.RemoveInventory(ItemToConsume.ItemName);
             StartCoroutine(melt());
         }

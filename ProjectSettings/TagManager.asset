@@ -8,6 +8,8 @@ TagManager:
   - PlayerSpawn
   - Bad
   - Water
+  - StalkPoint
+  - boundary
   layers:
   - Default
   - TransparentFX
