@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 4232917174339151223}
-  _batteryDrainRate: 10
+  _batteryDrainRate: 2
 --- !u!1 &4232917174339151223
 GameObject:
   m_ObjectHideFlags: 0

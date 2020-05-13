@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwordPickup : InventoryItem
 {
     public List<GameObject> lights;
+    public GameObject man;
     private Color32 col = new Color32(255,0,0,255);
     protected override void PerformAction()
     {
@@ -20,5 +21,6 @@ public class SwordPickup : InventoryItem
             }
             lights[x].GetComponent<BloomingLight>().enabled = false;
         }
+        man.GetComponent<moveTo>().chasing=true;
     }
 }

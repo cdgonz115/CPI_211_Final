@@ -9,6 +9,7 @@ public class AISight : MonoBehaviour
     public int playerInSight = -1;//state var
     public int playerMissing = -1;
     public AudioSource ads;
+    public bool stunned;
     private bool play = true;
     public bool behindWall;
     private float timeSeeR = 2f;
@@ -67,62 +68,66 @@ public class AISight : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        bool hiding = Player.IsHiding;
-        behindWall = false;
-
-        //check if the player is in sight
-        if (GameObject.ReferenceEquals(other.gameObject, player[0]))
+        if (!stunned)
         {
-            //--------------------------------------------------------------------------------------------------------------------------------------------
-            //playerInSight = -1;//default false
-            //--------------------------------------------------------------------------------------------------------------------------------------------
-            Vector3 directionPlayer = other.transform.position - transform.position; //make a vector pointing at the player
-            float angle = Vector3.Angle(directionPlayer, transform.forward);//find angle between forward self and the player
+            bool hiding = Player.IsHiding;
+            behindWall = false;
 
-            if (angle < 0.5f * view)//if player is less than half of our view angle...
+            //check if the player is in sight
+            if (GameObject.ReferenceEquals(other.gameObject, player[0]))
             {
-                RaycastHit wallChecker;
+                //--------------------------------------------------------------------------------------------------------------------------------------------
+                //playerInSight = -1;//default false
+                //--------------------------------------------------------------------------------------------------------------------------------------------
+                Vector3 directionPlayer = other.transform.position - transform.position; //make a vector pointing at the player
+                float angle = Vector3.Angle(directionPlayer, transform.forward);//find angle between forward self and the player
 
-                if (Physics.Raycast(transform.position + transform.up / 2, directionPlayer.normalized, out wallChecker, coll.radius))//if there is a collider
+                if (angle < 0.5f * view)//if player is less than half of our view angle...
                 {
-                    if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && (selfState.chasing || (selfState.returning && timeSeeR <= 0)))//if it's the player and we're chasing them
-                    {
-                        playerInSight = 1;//we can see the player (there was no wall, so if they are hiding we saw them hide)
+                    RaycastHit wallChecker;
 
-                    }
-                    else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.stalking)//if it's the player and we're hunting
+                    if (Physics.Raycast(transform.position + transform.up / 2, directionPlayer.normalized, out wallChecker, coll.radius))//if there is a collider
                     {
-                        if (hiding) //Player.IsHiding == true
+                        if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && (selfState.chasing || (selfState.returning && timeSeeR <= 0)))//if it's the player and we're chasing them
                         {
-                            playerInSight = -1;//cannot see player, player is hiding
+                            playerInSight = 1;//we can see the player (there was no wall, so if they are hiding we saw them hide)
+
+                        }
+                        else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.stalking)//if it's the player and we're hunting
+                        {
+                            if (hiding) //Player.IsHiding == true
+                            {
+                                playerInSight = -1;//cannot see player, player is hiding
+                            }
+                            else
+                            {
+                                playerInSight = 1;//can see player
+                            }
+
+                        }
+                        else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.searching)//if it's the player and we're searching
+                        {
+                            //print("there you are!");
+                            if (hiding) //player[0].isHiding
+                            {
+                                playerInSight = -1;//cannot see player, player is hiding
+                            }
+                            else
+                            {
+                                playerInSight = 1;//can see player
+                            }
                         }
                         else
                         {
-                            playerInSight = 1;//can see player
+                            behindWall = true;
                         }
 
                     }
-                    else if (GameObject.ReferenceEquals(wallChecker.collider.gameObject, player[0]) && selfState.searching)//if it's the player and we're searching
-                    {
-                        //print("there you are!");
-                        if (hiding) //player[0].isHiding
-                        {
-                            playerInSight = -1;//cannot see player, player is hiding
-                        }
-                        else
-                        {
-                            playerInSight = 1;//can see player
-                        }
-                    }
-                    else
-                    {
-                        behindWall = true;
-                    }
-
                 }
-            }
 
+            }
         }
+        else playerInSight = -1;
 
     }
 }

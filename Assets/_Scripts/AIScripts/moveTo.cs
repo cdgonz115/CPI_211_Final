@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class moveTo : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class moveTo : MonoBehaviour
     private Transform playerPos;
     private GameObject[] player;
     public Transform lastPlayerSight;
+    private float teleportCooldown=10;
+    private float teleportTimer=0;
     private float timer;
     private bool timeAttack;
     private float randTime;
@@ -29,6 +32,7 @@ public class moveTo : MonoBehaviour
     public float chaseSpeed = 8f;
     public float searchSpeed = 5f;
     private float offsetTime = 2f;
+    private float distance=100;
 
     //animation states
     private float idle = 0.0f;
@@ -43,6 +47,12 @@ public class moveTo : MonoBehaviour
     public float bmMaxVolume;
     public float bmMinVolume;
 
+    //teleportation
+    public Camera cam;
+    public bool teleportEnabled = false;
+    private RaycastHit hit;
+
+    public Text message;
     private Animator anim;
 
     public GameObject stalkObj;
@@ -77,7 +87,9 @@ public class moveTo : MonoBehaviour
     //state machine
     void FixedUpdate()
     {
+       
         timer -= Time.deltaTime;
+        teleportTimer -= Time.deltaTime;
         //rightEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
         //leftEye.GetComponent<Material>().SetColor("_Color", Color.red * timer);
 
@@ -105,17 +117,66 @@ public class moveTo : MonoBehaviour
             }
 
             //turn off eyes
-            rightEye.SetActive(false);
-            leftEye.SetActive(false);
+            rightEye.GetComponentInChildren<Light>().range=.5f;
+            leftEye.GetComponentInChildren<Light>().range=.5f;
 
             //set state
+            DistanceToStalkpoints temp = player[0].GetComponent<DistanceToStalkpoints>();
+            distance = Vector3.Distance(player[0].transform.position, transform.position);
+            if (teleportEnabled && distance > 40 && temp.distance < distance && teleportTimer <= 0)
+            {
+                Vector3 check = cam.WorldToViewportPoint(temp.closest.transform.position);
+                Vector3 onScreen = cam.WorldToViewportPoint(transform.position);
+                //Check if bad man can be seen by the player
+                if ((onScreen.x >= 0 && onScreen.x <= 1) && (onScreen.y >= 0 && onScreen.y <= 1) && (onScreen.z >= 0)) { }
+                else
+                {
+                    //check if the closest stalking point can be seen by the player
+                    if ((check.x >= 0 && check.x <= 1) && (check.y >= 0 && check.y <= 1) && (check.z >= 0))
+                    {
+                        if (Physics.Raycast(cam.transform.position, -(transform.position - temp.closest.transform.position), out hit, 35f))
+                        {
+                            //check if the player has a direct line of sight to the closest stalking point
+                            if (hit.transform.tag != "StalkPoint" && hit.transform.tag != "boundary")
+                            {
+                                //print(hit.transform.name);
+                                //print("first2 " + temp.distance);
+                            }
+                            else if (temp.sDistance < distance)
+                            {
+                                teleport(temp.sClosest);
+                                //print("second2");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //check that the stalking point is at a minimum distance
+                        if (temp.distance >= 5)
+                        {
+                            teleport(temp.closest);
+                            //print("first1");
+                        }
+                        else if (temp.sDistance < distance)
+                        {
+                            teleport(temp.sClosest);
+                            //print("second1");
+                        }
+                    }
+                }
+            }
             if (timer <= 0)
             {
                 timeAttack = true;
+
                 Chasing();//chase them
             }
             else
+            {
                 Chasing();
+            }
+               
+             
         }
         else if ((Player.IsHiding && selfSight.playerMissing == 1) || searching)//if they went missing while they were being chased //|| selfSight.behindWall
         {
@@ -145,6 +206,7 @@ public class moveTo : MonoBehaviour
             }
 
             //set state
+            backgroundMusic.volume = bmMaxVolume/2f;
             Returning();
         }
         else//otherwise
@@ -160,14 +222,21 @@ public class moveTo : MonoBehaviour
             }
             backgroundMusic.volume = bmMaxVolume;
             //turn on eyes
-            rightEye.SetActive(true);
-            leftEye.SetActive(true);
+            rightEye.GetComponentInChildren<Light>().range = .1f;
+            leftEye.GetComponentInChildren<Light>().range = .1f;
 
             //set state
             Stalking();//keep stalking
         }
     }
 
+    void teleport(GameObject closest)
+    {
+        transform.position = closest.transform.position;
+        transform.forward = -(transform.position - player[0].transform.position);
+        teleportTimer = teleportCooldown;
+        agent.destination = playerPos.position;
+    }
     void Suspended()
     {
         stalking = false;
@@ -179,7 +248,7 @@ public class moveTo : MonoBehaviour
     }
 
     //chasing the player by running at them according to the navmesh
-    void Chasing()
+    public void Chasing()
     {
         //AudioManager.singleton.PlayClip("(loop) Burning Pulse");
         //chase.Play();
